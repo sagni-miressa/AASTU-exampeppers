@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-function showPage(pageName) {
+function showPage(pageName, event) {
   document.querySelectorAll(".page-section").forEach(sec => sec.classList.add("hidden"));
   document.querySelectorAll(".nav-bubble").forEach(btn => btn.classList.remove("active"));
 
@@ -44,7 +44,9 @@ function showPage(pageName) {
     document.getElementById("contactPage").classList.remove("hidden");
   }
 
-  event.target.classList.add("active");
+  if (event && event.target) {
+    event.target.classList.add("active");
+  }
 }
 
 function switchSemester(sem) {
@@ -88,10 +90,24 @@ function renderCourses() {
   });
 }
 
+function previewScreenshot(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById("screenshotPreview").src = e.target.result;
+      document.getElementById("previewContainer").classList.remove("hidden");
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
 function processPayment() {
   const txnRef = document.getElementById("txnRef").value;
-  if (!txnRef || txnRef.trim().length < 3) {
-    alert("Please enter your payment reference transaction code.");
+  const fileInput = document.getElementById("screenshotInput");
+
+  if (!txnRef && fileInput.files.length === 0) {
+    alert("Please enter a payment transaction code OR attach a receipt screenshot.");
     return;
   }
 
@@ -102,7 +118,7 @@ function processPayment() {
 
   closeModal("paymentModal");
   renderCourses();
-  alert("Payment verified! All freshman exam papers are unlocked.");
+  alert("Payment verified successfully! All AASTU freshman papers are unlocked.");
 }
 
 function openPaper(course, paper) {
@@ -126,4 +142,51 @@ function openPaper(course, paper) {
 
 function closeModal(modalId) {
   document.getElementById(modalId).classList.add("hidden");
+}
+
+/* AI Assistant Logic */
+function toggleAiChat() {
+  document.getElementById("aiChatBox").classList.toggle("hidden");
+}
+
+function handleAiKeyPress(e) {
+  if (e.key === "Enter") sendAiMessage();
+}
+
+function sendAiPrompt(promptText) {
+  document.getElementById("aiInput").value = promptText;
+  sendAiMessage();
+}
+
+function sendAiMessage() {
+  const input = document.getElementById("aiInput");
+  const text = input.value.trim();
+  if (!text) return;
+
+  appendAiMsg(text, "user");
+  input.value = "";
+
+  setTimeout(() => {
+    let reply = "I am here to help you use the portal! You can unlock all exams for 100 ETB or contact Sagni Miressa.";
+    const query = text.toLowerCase();
+
+    if (query.includes("buy") || query.includes("payment") || query.includes("unlock")) {
+      reply = "To buy access:\n1. Click 'Unlock (100 ETB)' button.\n2. Transfer 100 ETB to CBE (1000654224657 - Sagni Miressa) or Telebirr (0944899465 - Abebe Jabessa).\n3. Enter code or attach screenshot, then click Verify!";
+    } else if (query.includes("owner") || query.includes("sagni") || query.includes("contact")) {
+      reply = "The portal owner is Sagni Miressa. You can contact him via Telegram (@samirgob) or call/Telebirr 0944899465.";
+    } else if (query.includes("receipt") || query.includes("upload") || query.includes("screenshot")) {
+      reply = "Click the Unlock button, attach your receipt screenshot under 'Upload Payment Screenshot', and hit Submit Verification!";
+    }
+
+    appendAiMsg(reply, "bot");
+  }, 400);
+}
+
+function appendAiMsg(text, sender) {
+  const container = document.getElementById("aiMessages");
+  const msgDiv = document.createElement("div");
+  msgDiv.className = `ai-msg ${sender}`;
+  msgDiv.innerText = text;
+  container.appendChild(msgDiv);
+  container.scrollTop = container.scrollHeight;
 }
