@@ -4,18 +4,18 @@ let searchQuery = "";
 
 const courses = {
   1: [
-    { name: "Communicative English Language Skills I", code: "ENG101", papers: [{ name: "2023 Midterm", type: "pdf" }, { name: "2023 Final", type: "img" }, { name: "2022 Quiz 1", type: "pdf" }] },
-    { name: "General Psychology", code: "PSY101", papers: [{ name: "2023 Midterm", type: "pdf" }, { name: "2023 Final", type: "pdf" }] },
-    { name: "Applied Mathematics I", code: "MATH101", papers: [{ name: "2023 Midterm", type: "pdf" }, { name: "2023 Final", type: "pdf" }, { name: "2022 Final", type: "img" }] },
-    { name: "Logic & Critical Thinking", code: "LOG101", papers: [{ name: "2023 Midterm", type: "pdf" }, { name: "2022 Final", type: "pdf" }] },
-    { name: "General Mathematics", code: "MATH100", papers: [{ name: "2023 Midterm", type: "pdf" }, { name: "2023 Final", type: "pdf" }] }
+    { name: "Communicative English Language Skills I", code: "ENG101", papers: ["2023 Midterm (PDF)", "2023 Final (IMG)", "2022 Quiz 1 (PDF)"] },
+    { name: "General Psychology", code: "PSY101", papers: ["2023 Midterm (PDF)", "2023 Final (PDF)"] },
+    { name: "Applied Mathematics I", code: "MATH101", papers: ["2023 Midterm (PDF)", "2023 Final (PDF)", "2022 Final (IMG)"] },
+    { name: "Logic & Critical Thinking", code: "LOG101", papers: ["2023 Midterm (PDF)", "2022 Final (PDF)"] },
+    { name: "General Mathematics", code: "MATH100", papers: ["2023 Midterm (PDF)", "2023 Final (PDF)"] }
   ],
   2: [
-    { name: "Communicative English Language Skills II", code: "ENG102", papers: [{ name: "2023 Midterm", type: "pdf" }, { name: "2023 Final", type: "pdf" }] },
-    { name: "Entrepreneurship", code: "ENT102", papers: [{ name: "2023 Midterm", type: "pdf" }, { name: "2023 Final", type: "pdf" }] },
-    { name: "Social Anthropology", code: "ANT102", papers: [{ name: "2023 Midterm", type: "pdf" }, { name: "2023 Final", type: "pdf" }] },
-    { name: "Emerging Technologies", code: "EMTG102", papers: [{ name: "2023 Midterm", type: "pdf" }, { name: "2023 Final", type: "pdf" }, { name: "2022 Quiz", type: "pdf" }] },
-    { name: "Health & Physical Education", code: "HPE102", papers: [{ name: "2023 Final", type: "pdf" }] }
+    { name: "Communicative English Language Skills II", code: "ENG102", papers: ["2023 Midterm (PDF)", "2023 Final (PDF)"] },
+    { name: "Entrepreneurship", code: "ENT102", papers: ["2023 Midterm (PDF)", "2023 Final (PDF)"] },
+    { name: "Social Anthropology", code: "ANT102", papers: ["2023 Midterm (PDF)", "2023 Final (PDF)"] },
+    { name: "Emerging Technologies", code: "EMTG102", papers: ["2023 Midterm (PDF)", "2023 Final (PDF)", "2022 Quiz (PDF)"] },
+    { name: "Health & Physical Education", code: "HPE102", papers: ["2023 Final (PDF)"] }
   ]
 };
 
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function showPage(pageName) {
   document.querySelectorAll(".page-section").forEach(sec => sec.classList.add("hidden"));
-  document.querySelectorAll(".nav-item").forEach(nav => nav.classList.remove("active"));
+  document.querySelectorAll(".nav-bubble").forEach(btn => btn.classList.remove("active"));
 
   if (pageName === 'home') {
     document.getElementById("homePage").classList.remove("hidden");
@@ -49,10 +49,8 @@ function showPage(pageName) {
 
 function switchSemester(sem) {
   currentSemester = sem;
-  
-  document.getElementById("sem1Card").classList.toggle("active", sem === 1);
-  document.getElementById("sem2Card").classList.toggle("active", sem === 2);
-
+  document.getElementById("sem1Btn").classList.toggle("active", sem === 1);
+  document.getElementById("sem2Btn").classList.toggle("active", sem === 2);
   renderCourses();
 }
 
@@ -74,20 +72,15 @@ function renderCourses() {
     card.className = "course-card";
 
     let paperListHTML = course.papers.map(p => `
-      <div class="paper-item" onclick="openPaper('${course.name}', '${p.name}', '${p.type}')">
-        <div style="display:flex; align-items:center; gap:8px;">
-          <span class="${p.type === 'pdf' ? 'tag-pdf' : 'tag-img'}">${p.type.toUpperCase()}</span>
-          <span>${p.name}</span>
-        </div>
-        <span>${isUnlocked ? '👀 View' : '🔒'}</span>
-      </div>
+      <button class="paper-btn" onclick="openPaper('${course.name}', '${p}')">
+        <span>📄 ${p}</span>
+        <span>${isUnlocked ? '👀 View' : '🔒 Locked'}</span>
+      </button>
     `).join("");
 
     card.innerHTML = `
-      <div class="course-header">
-        <h4>${course.name}</h4>
-        <span class="code-pill">${course.code}</span>
-      </div>
+      <h4>${course.name}</h4>
+      <p style="color:#777; font-size:0.85rem; margin-bottom:8px;">Code: ${course.code}</p>
       <div class="paper-list">${paperListHTML}</div>
     `;
 
@@ -97,8 +90,8 @@ function renderCourses() {
 
 function processPayment() {
   const txnRef = document.getElementById("txnRef").value;
-  if (!txnRef || txnRef.trim().length < 4) {
-    alert("Please enter a valid transaction reference code.");
+  if (!txnRef || txnRef.trim().length < 3) {
+    alert("Please enter your payment reference transaction code.");
     return;
   }
 
@@ -109,29 +102,23 @@ function processPayment() {
 
   closeModal("paymentModal");
   renderCourses();
-  alert("Payment submission received! All freshman exam papers are now unlocked.");
+  alert("Payment verified! All freshman exam papers are unlocked.");
 }
 
-function openPaper(course, paperName, paperType) {
+function openPaper(course, paper) {
   if (!isUnlocked) {
     document.getElementById("paymentModal").classList.remove("hidden");
     return;
   }
 
   const modal = document.getElementById("viewerModal");
-  document.getElementById("viewerTitle").innerText = `${course} - ${paperName}`;
+  document.getElementById("viewerTitle").innerText = `${course} - ${paper}`;
   
   const body = document.getElementById("viewerBody");
-  if (paperType === "pdf") {
-    body.innerHTML = `
-      <div style="padding:1rem; text-align:center;">
-        <iframe src="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" width="100%" height="450px" style="border-radius: 8px; border: 1px solid var(--border-color);"></iframe>
-      </div>`;
+  if (paper.includes("(PDF)")) {
+    body.innerHTML = `<iframe src="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" width="100%" height="400px"></iframe>`;
   } else {
-    body.innerHTML = `
-      <div style="padding:1rem; text-align:center;">
-        <img src="https://via.placeholder.com/600x800?text=AASTU+Past+Exam+Picture" style="max-width:100%; height:auto; border-radius: 8px;" />
-      </div>`;
+    body.innerHTML = `<img src="https://via.placeholder.com/600x800?text=AASTU+Exam+Paper+Image" style="max-width:100%; height:auto;" />`;
   }
 
   modal.classList.remove("hidden");

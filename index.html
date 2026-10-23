@@ -9,112 +9,104 @@
 </head>
 <body>
 
-  <!-- Top Navigation Bar -->
+  <!-- Top Navigation Header -->
   <header class="navbar">
     <div class="logo-container">
       <span class="logo-badge">AASTU</span>
       <h1>EXAM PAPERS</h1>
     </div>
-    
+
+    <!-- Bubble Navigation Items -->
     <nav class="nav-links">
-      <a href="#" class="nav-item active" onclick="showPage('home')">Home</a>
-      <a href="#" class="nav-item" onclick="showPage('about')">About</a>
-      <a href="#" class="nav-item" onclick="showPage('contact')">Contact</a>
+      <button class="nav-bubble active" onclick="showPage('home')">🏠 Home</button>
+      <button class="nav-bubble" onclick="showPage('about')">ℹ️ About</button>
+      <button class="nav-bubble" onclick="showPage('contact')">📞 Contact</button>
     </nav>
 
     <div class="user-status">
       <span id="accessBadge" class="status-badge locked">🔒 LOCKED</span>
-      <button id="unlockBtn" class="btn-primary">Unlock All (100 ETB)</button>
+      <button id="unlockBtn" class="btn-primary">Unlock (100 ETB)</button>
     </div>
   </header>
 
-  <!-- HOME PAGE SECTION -->
+  <!-- PAGE 1: HOME PAGE -->
   <div id="homePage" class="page-section">
-    <!-- Hero Section -->
     <section class="hero">
-      <h2>AASTU Freshman Exam Portal</h2>
-      <p>Access verified midterms, finals, and quizzes across all official AASTU freshman courses.</p>
+      <h2>Freshman Exam Preparation Portal</h2>
+      <p>Access verified midterms, finals, and quizzes across all official AASTU courses.</p>
       
-      <div class="search-container">
-        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search course name or code (e.g. ENG101, Math, Logic)..." />
+      <div class="controls-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search course name or code (e.g., ENG101, Math)..." />
+        <div class="semester-tabs">
+          <button id="sem1Btn" class="tab-btn active" onclick="switchSemester(1)">Semester 1</button>
+          <button id="sem2Btn" class="tab-btn" onclick="switchSemester(2)">Semester 2</button>
+        </div>
       </div>
     </section>
 
-    <!-- Prominent Semester Dashboard Cards -->
-    <section class="semester-dashboard-container">
-      <div id="sem1Card" class="semester-card active" onclick="switchSemester(1)">
-        <div class="sem-badge">SEMESTER 1</div>
-        <h3>First Semester Courses</h3>
-        <p>Applied Math I, Psychology, Logic, Communicative English I, General Math</p>
-        <span class="sem-action">View Courses &rarr;</span>
-      </div>
-
-      <div id="sem2Card" class="semester-card" onclick="switchSemester(2)">
-        <div class="sem-badge">SEMESTER 2</div>
-        <h3>Second Semester Courses</h3>
-        <p>Communicative English II, Entrepreneurship, Anthropology, Emerging Tech, HPE</p>
-        <span class="sem-action">View Courses &rarr;</span>
-      </div>
-    </section>
-
-    <!-- Course Grid -->
     <main class="container">
       <div id="courseGrid" class="course-grid"></div>
     </main>
   </div>
 
-  <!-- ABOUT PAGE SECTION -->
+  <!-- PAGE 2: ABOUT PAGE -->
   <div id="aboutPage" class="page-section hidden">
     <div class="info-card">
       <h2>About AASTU EXAM PAPERS</h2>
-      <p>AASTU EXAM PAPERS is a dedicated learning resource platform designed specifically for Addis Ababa Science and Technology University (AASTU) freshman students.</p>
-      <br>
-      <h3>Our Mission</h3>
-      <p>To empower first-year students with high-quality, verified past exam papers, midterm solutions, and quiz prep materials to help them excel in their university journey.</p>
+      <p>AASTU EXAM PAPERS is an exam repository created for Addis Ababa Science and Technology University (AASTU) freshman students.</p>
+      
+      <h3>Our Purpose</h3>
+      <p>To help first-year students study effectively by providing organized access to past midterms, final exam questions, and quiz solutions.</p>
     </div>
   </div>
 
-  <!-- CONTACT PAGE SECTION -->
+  <!-- PAGE 3: CONTACT PAGE -->
   <div id="contactPage" class="page-section hidden">
     <div class="info-card">
       <h2>Contact Us</h2>
-      <p>Have questions, issue payments, or want to contribute past paper pictures/PDFs?</p>
-      <br>
-      <div class="contact-details">
-        <p><strong>📞 Phone / Telebirr:</strong> 0944899465 (Abebe Jabessa)</p>
-        <p><strong>💳 CBE Account:</strong> 1000654224657 (Sagni Miressa)</p>
-        <p><strong>📍 Location:</strong> AASTU Campus, Addis Ababa</p>
+      <p>Reach out for support, payment confirmations, or paper submissions:</p>
+
+      <div class="bubble-contact-group">
+        <a href="https://t.me/samirgob" target="_blank" class="contact-bubble telegram">
+          <span>✈️ Telegram:</span> <strong>@samirgob</strong>
+        </a>
+        <a href="tel:0944899465" class="contact-bubble phone">
+          <span>📞 Phone / Telebirr:</span> <strong>0944899465</strong>
+        </a>
+        <div class="contact-bubble bank">
+          <span>💳 CBE Account:</span> <strong>1000654224657 (Sagni Miressa)</strong>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Payment Modal with Real Account Details -->
+  <!-- Payment Modal -->
   <div id="paymentModal" class="modal hidden">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal('paymentModal')">&times;</span>
       <h3>Unlock Full Access (100 ETB)</h3>
-      <p style="color: var(--text-muted); margin-top: 4px;">Transfer 100 ETB using one of the payment options below:</p>
+      <p class="modal-sub">Complete 100 ETB payment to unlock all courses:</p>
 
-      <div class="payment-instructions">
-        <div class="pay-box">
-          <h4>Option 1: Commercial Bank of Ethiopia (CBE)</h4>
-          <p>Account Number: <strong class="copy-text">1000654224657</strong></p>
-          <p>Account Holder: <strong>Sagni Miressa</strong></p>
+      <div class="payment-box">
+        <div class="pay-item">
+          <h4>Commercial Bank of Ethiopia (CBE)</h4>
+          <p>Account: <strong class="highlight">1000654224657</strong></p>
+          <p>Name: <strong>Sagni Miressa</strong></p>
         </div>
 
-        <div class="pay-box">
-          <h4>Option 2: Telebirr Transfer</h4>
-          <p>Telebirr Phone: <strong class="copy-text">0944899465</strong></p>
-          <p>Account Holder: <strong>Abebe Jabessa</strong></p>
+        <div class="pay-item">
+          <h4>Telebirr Direct Transfer</h4>
+          <p>Phone: <strong class="highlight">0944899465</strong></p>
+          <p>Name: <strong>Abebe Jabessa</strong></p>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="txnRef"><strong>Transaction / Reference Number:</strong></label>
-        <input type="text" id="txnRef" placeholder="Enter transaction reference code" />
+        <label for="txnRef"><strong>Transaction Reference Code:</strong></label>
+        <input type="text" id="txnRef" placeholder="e.g. TXN12345678" />
       </div>
 
-      <button onclick="processPayment()" class="btn-success">Verify & Unlock Access</button>
+      <button onclick="processPayment()" class="btn-success">Verify & Unlock</button>
     </div>
   </div>
 
@@ -122,7 +114,7 @@
   <div id="viewerModal" class="modal hidden">
     <div class="modal-content large">
       <span class="close-btn" onclick="closeModal('viewerModal')">&times;</span>
-      <h3 id="viewerTitle">Document Viewer</h3>
+      <h3 id="viewerTitle">Exam Viewer</h3>
       <div id="viewerBody"></div>
     </div>
   </div>
