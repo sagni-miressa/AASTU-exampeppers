@@ -4,18 +4,88 @@ let searchQuery = "";
 
 const courses = {
   1: [
-    { name: "Communicative English Language Skills I", code: "ENG101", papers: ["2023 Midterm (PDF)", "2023 Final (IMG)", "2022 Quiz 1 (PDF)"] },
-    { name: "General Psychology", code: "PSY101", papers: ["2023 Midterm (PDF)", "2023 Final (PDF)"] },
-    { name: "Applied Mathematics I", code: "MATH101", papers: ["2023 Midterm (PDF)", "2023 Final (PDF)", "2022 Final (IMG)"] },
-    { name: "Logic & Critical Thinking", code: "LOG101", papers: ["2023 Midterm (PDF)", "2022 Final (PDF)"] },
-    { name: "General Mathematics", code: "MATH100", papers: ["2023 Midterm (PDF)", "2023 Final (PDF)"] }
+    {
+      name: "Communicative English Language Skills I", code: "ENG101",
+      years: {
+        "2016": ["2016 Midterm (PDF)", "2016 Final (PDF)"],
+        "2017": ["2017 Midterm (PDF)", "2017 Final (IMG)"],
+        "2018": ["2018 Midterm (PDF)", "2018 Final (PDF)"]
+      }
+    },
+    {
+      name: "General Psychology", code: "PSY101",
+      years: {
+        "2016": ["2016 Midterm (PDF)", "2016 Final (PDF)"],
+        "2017": ["2017 Midterm (PDF)", "2017 Final (PDF)"],
+        "2018": ["2018 Midterm (PDF)", "2018 Final (PDF)"]
+      }
+    },
+    {
+      name: "Applied Mathematics I", code: "MATH101",
+      years: {
+        "2016": ["2016 Midterm (PDF)", "2016 Final (PDF)"],
+        "2017": ["2017 Midterm (PDF)", "2017 Final (IMG)"],
+        "2018": ["2018 Midterm (PDF)", "2018 Final (PDF)"]
+      }
+    },
+    {
+      name: "Logic & Critical Thinking", code: "LOG101",
+      years: {
+        "2016": ["2016 Midterm (PDF)", "2016 Final (PDF)"],
+        "2017": ["2017 Midterm (PDF)", "2017 Final (PDF)"],
+        "2018": ["2018 Midterm (PDF)", "2018 Final (PDF)"]
+      }
+    },
+    {
+      name: "General Mathematics", code: "MATH100",
+      years: {
+        "2016": ["2016 Midterm (PDF)", "2016 Final (PDF)"],
+        "2017": ["2017 Midterm (PDF)", "2017 Final (PDF)"],
+        "2018": ["2018 Midterm (PDF)", "2018 Final (PDF)"]
+      }
+    }
   ],
   2: [
-    { name: "Communicative English Language Skills II", code: "ENG102", papers: ["2023 Midterm (PDF)", "2023 Final (PDF)"] },
-    { name: "Entrepreneurship", code: "ENT102", papers: ["2023 Midterm (PDF)", "2023 Final (PDF)"] },
-    { name: "Social Anthropology", code: "ANT102", papers: ["2023 Midterm (PDF)", "2023 Final (PDF)"] },
-    { name: "Emerging Technologies", code: "EMTG102", papers: ["2023 Midterm (PDF)", "2023 Final (PDF)", "2022 Quiz (PDF)"] },
-    { name: "Health & Physical Education", code: "HPE102", papers: ["2023 Final (PDF)"] }
+    {
+      name: "Communicative English Language Skills II", code: "ENG102",
+      years: {
+        "2016": ["2016 Midterm (PDF)", "2016 Final (PDF)"],
+        "2017": ["2017 Midterm (PDF)", "2017 Final (PDF)"],
+        "2018": ["2018 Midterm (PDF)", "2018 Final (PDF)"]
+      }
+    },
+    {
+      name: "Entrepreneurship", code: "ENT102",
+      years: {
+        "2016": ["2016 Midterm (PDF)", "2016 Final (PDF)"],
+        "2017": ["2017 Midterm (PDF)", "2017 Final (PDF)"],
+        "2018": ["2018 Midterm (PDF)", "2018 Final (PDF)"]
+      }
+    },
+    {
+      name: "Social Anthropology", code: "ANT102",
+      years: {
+        "2016": ["2016 Midterm (PDF)", "2016 Final (PDF)"],
+        "2017": ["2017 Midterm (PDF)", "2017 Final (PDF)"],
+        "2018": ["2018 Midterm (PDF)", "2018 Final (PDF)"]
+      }
+    },
+    {
+      name: "Emerging Technologies", code: "EMTG102",
+      years: {
+        "2016": ["2016 Midterm (PDF)", "2016 Final (PDF)"],
+        "2017": ["2017 Midterm (PDF)", "2017 Final (PDF)"],
+        "2018": ["2018 Midterm (PDF)", "2018 Final (PDF)"]
+      }
+    },
+    {
+      name: "Health & Physical Education", code: "HPE102",
+      years: {
+        "2016": ["2016 Final (PDF)"],
+        "2017": ["2017 Final (PDF)"],
+        "2018": ["2018 Final (PDF)"]
+      }
+    }
   ]
 };
 
@@ -69,25 +139,47 @@ function renderCourses() {
     return;
   }
 
-  filtered.forEach(course => {
+  filtered.forEach((course, courseIdx) => {
     const card = document.createElement("div");
     card.className = "course-card";
 
-    let paperListHTML = course.papers.map(p => `
-      <button class="paper-btn" onclick="openPaper('${course.name}', '${p}')">
-        <span>📄 ${p}</span>
-        <span>${isUnlocked ? '👀 View' : '🔒 Locked'}</span>
-      </button>
-    `).join("");
+    let yearsHTML = "";
+    Object.keys(course.years).forEach(yr => {
+      const papers = course.years[yr];
+      const yearContainerId = `yr-${courseIdx}-${yr}`;
+
+      let paperBtnsHTML = papers.map(p => `
+        <button class="paper-btn" onclick="openPaper('${course.name}', '${p}')">
+          <span>📄 ${p}</span>
+          <span>${isUnlocked ? '👀 View' : '🔒 Locked'}</span>
+        </button>
+      `).join("");
+
+      yearsHTML += `
+        <div class="year-group">
+          <div class="year-header" onclick="toggleYearGroup('${yearContainerId}')">
+            <span>📅 ${yr} Academic Year</span>
+            <span>▼</span>
+          </div>
+          <div id="${yearContainerId}" class="year-papers hidden">
+            ${paperBtnsHTML}
+          </div>
+        </div>
+      `;
+    });
 
     card.innerHTML = `
       <h4>${course.name}</h4>
       <p style="color:#777; font-size:0.85rem; margin-bottom:8px;">Code: ${course.code}</p>
-      <div class="paper-list">${paperListHTML}</div>
+      ${yearsHTML}
     `;
 
     grid.appendChild(card);
   });
+}
+
+function toggleYearGroup(id) {
+  document.getElementById(id).classList.toggle("hidden");
 }
 
 function previewScreenshot(event) {
@@ -144,7 +236,7 @@ function closeModal(modalId) {
   document.getElementById(modalId).classList.add("hidden");
 }
 
-/* AI Assistant Logic */
+/* Floating AI Assistant Logic */
 function toggleAiChat() {
   document.getElementById("aiChatBox").classList.toggle("hidden");
 }
@@ -167,15 +259,15 @@ function sendAiMessage() {
   input.value = "";
 
   setTimeout(() => {
-    let reply = "I am here to help you use the portal! You can unlock all exams for 100 ETB or contact Sagni Miressa.";
+    let reply = "I am here to help you navigate the portal! Ask me about buying access, uploading payment receipts, or contacting Sagni Miressa.";
     const query = text.toLowerCase();
 
     if (query.includes("buy") || query.includes("payment") || query.includes("unlock")) {
-      reply = "To buy access:\n1. Click 'Unlock (100 ETB)' button.\n2. Transfer 100 ETB to CBE (1000654224657 - Sagni Miressa) or Telebirr (0944899465 - Abebe Jabessa).\n3. Enter code or attach screenshot, then click Verify!";
+      reply = "To buy access:\n1. Click 'Unlock (100 ETB)'.\n2. Transfer 100 ETB via CBE (1000654224657 - Sagni Miressa) or Telebirr (0944899465 - Abebe Jabessa).\n3. Enter transaction code or upload receipt screenshot!";
     } else if (query.includes("owner") || query.includes("sagni") || query.includes("contact")) {
-      reply = "The portal owner is Sagni Miressa. You can contact him via Telegram (@samirgob) or call/Telebirr 0944899465.";
+      reply = "The portal owner is Sagni Miressa. Contact via Telegram @samirgob or call 0944899465.";
     } else if (query.includes("receipt") || query.includes("upload") || query.includes("screenshot")) {
-      reply = "Click the Unlock button, attach your receipt screenshot under 'Upload Payment Screenshot', and hit Submit Verification!";
+      reply = "Open the Unlock modal, choose your screenshot under 'Upload Payment Screenshot', and click Submit Verification!";
     }
 
     appendAiMsg(reply, "bot");

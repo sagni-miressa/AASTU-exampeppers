@@ -109,7 +109,7 @@ body {
 .info-card h2 { color: var(--primary); margin-bottom: 1rem; }
 .info-card h3 { color: var(--primary-light); margin-top: 1.5rem; margin-bottom: 0.5rem; }
 
-/* Contact Bubbles with Icons */
+/* Contact Bubbles */
 .bubble-contact-group {
   display: flex;
   flex-direction: column;
@@ -127,17 +127,9 @@ body {
   color: var(--text-main);
   background: #f8f9fa;
   border: 1px solid var(--border-color);
-  transition: all 0.2s ease;
 }
 
-.contact-bubble:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.contact-icon {
-  font-size: 1.8rem;
-}
+.icon-emoji { font-size: 1.5rem; }
 
 .contact-bubble.telegram { background: #e8f4fd; border-color: #389ce9; color: #0088cc; }
 .contact-bubble.phone { background: #eefbf3; border-color: #2ecc71; color: #27ae60; }
@@ -207,27 +199,54 @@ body {
   border: 1px solid var(--border-color);
 }
 
-.course-card h4 { color: var(--primary); margin-bottom: 0.5rem; }
+.course-card h4 { color: var(--primary); margin-bottom: 0.3rem; }
 
-.paper-list {
-  margin-top: 1rem;
+/* Year Accordion Styling */
+.year-group {
+  margin-top: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.year-header {
+  background: #f1f5f9;
+  padding: 8px 12px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: var(--primary-light);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.year-header:hover { background: #e2e8f0; }
+
+.year-papers {
+  padding: 8px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
+  background: #ffffff;
 }
+
+.year-papers.hidden { display: none; }
 
 .paper-btn {
   padding: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid #eee;
   background: #f8f9fa;
   border-radius: 4px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
 }
 
-/* Payment & Screenshot Preview */
+.paper-btn:hover { border-color: var(--primary); }
+
+/* Modals */
 .modal {
   position: fixed;
   inset: 0;
@@ -284,57 +303,60 @@ body {
   cursor: pointer;
 }
 
-/* AI Helper Widget */
-.ai-widget {
+/* Floating AI Assistant FAB & Popup Window */
+.ai-floating-container {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 1000;
+  bottom: 25px;
+  right: 25px;
+  z-index: 9999;
 }
 
-.ai-toggle-btn {
+.ai-fab {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
   background: var(--primary);
   color: white;
   border: none;
-  padding: 12px 18px;
-  border-radius: 30px;
-  font-weight: bold;
+  font-size: 1.8rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   display: flex;
   align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  justify-content: center;
   transition: transform 0.2s;
 }
 
-.ai-toggle-btn:hover { transform: scale(1.05); }
+.ai-fab:hover { transform: scale(1.1); }
 
-.ai-chat-box {
+.ai-popup {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
   width: 320px;
-  height: 420px;
+  height: 400px;
   background: white;
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  border: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
-  position: absolute;
-  bottom: 60px;
-  right: 0;
   overflow: hidden;
-  border: 1px solid var(--border-color);
 }
 
-.ai-chat-box.hidden { display: none; }
+.ai-popup.hidden { display: none; }
 
-.ai-chat-header {
+.ai-popup-header {
   background: var(--primary);
   color: white;
   padding: 10px 14px;
+  font-weight: bold;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-weight: bold;
 }
+
+.close-ai { cursor: pointer; font-size: 1.2rem; }
 
 .ai-messages {
   flex: 1;
@@ -344,7 +366,7 @@ body {
   flex-direction: column;
   gap: 8px;
   background: #f8f9fa;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
 }
 
 .ai-msg {
@@ -402,10 +424,9 @@ body {
 /* Footer */
 .footer {
   background: var(--bg-dark);
-  color: #94a3b8;
+  color: white;
   text-align: center;
-  padding: 1.2rem;
-  font-size: 0.88rem;
-  margin-top: 3rem;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 1rem;
+  font-size: 0.9rem;
+  margin-top: auto;
 }
