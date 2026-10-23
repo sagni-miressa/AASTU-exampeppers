@@ -1,4 +1,4 @@
-// Firebase Project Configuration
+// Firebase Configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAz_RU2rTvyr_fe3DmfwBUpVj2zxoyx7a4",
   authDomain: "aastu-exampeppers.firebaseapp.com",
@@ -8,7 +8,7 @@ const firebaseConfig = {
   appId: "1:1062402927230:web:9c1a539b5b4e3e3b3922f3"
 };
 
-// Initialize Firebase App & Database
+// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
@@ -16,7 +16,7 @@ let isUnlocked = localStorage.getItem("aastu_access_unlocked") === "true";
 let currentSemester = 1;
 let searchQuery = "";
 
-// Course Data with file paths mapped to your exams/ folder
+// Course Dataset
 const courses = {
   1: [
     {
@@ -198,13 +198,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderCourses();
 
-  document.getElementById("unlockBtn").addEventListener("click", () => {
-    document.getElementById("paymentModal").classList.remove("hidden");
-  });
+  const unlockBtn = document.getElementById("unlockBtn");
+  if (unlockBtn) {
+    unlockBtn.addEventListener("click", () => {
+      document.getElementById("paymentModal").classList.remove("hidden");
+    });
+  }
 
-  document.getElementById("searchInput").addEventListener("input", (e) => {
-    searchQuery = e.target.value.toLowerCase();
-    renderCourses();
+  const searchInput = document.getElementById("searchInput");
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      searchQuery = e.target.value.toLowerCase();
+      renderCourses();
+    });
+  }
+
+  // --- ANTI-CAPTURE & ANTI-COPY SECURITY LISTENERS ---
+  // Disable Right-Click Context Menu
+  document.addEventListener("contextmenu", (e) => e.preventDefault());
+
+  // Block Keyboard Shortcuts (Print, Save, DevTools inspect)
+  document.addEventListener("keydown", (e) => {
+    if (
+      (e.ctrlKey && (e.key === "p" || e.key === "s" || e.key === "u")) ||
+      (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "C" || e.key === "J")) ||
+      e.key === "F12"
+    ) {
+      e.preventDefault();
+      alert("Copying, printing, and saving exam materials is strictly disabled.");
+    }
   });
 });
 
@@ -367,7 +389,19 @@ function openPaper(course, paperTitle, filePath) {
   document.getElementById("viewerTitle").innerText = `${course} - ${paperTitle}`;
   
   const body = document.getElementById("viewerBody");
-  body.innerHTML = `<iframe src="${filePath}" width="100%" height="500px" style="border:none; border-radius:8px;"></iframe>`;
+  
+  // Embed PDF inside container with watermark overlay & hidden browser toolbars
+  body.innerHTML = `
+    <div style="position: relative; width: 100%; height: 500px; overflow: hidden; border-radius: 8px;">
+      <div class="pdf-watermark-overlay">
+        <div class="pdf-watermark-text">
+          AASTU EXAM PEPPERS<br>
+          PROPRIETARY COPY - DO NOT DISTRIBUTE
+        </div>
+      </div>
+      <iframe src="${filePath}#toolbar=0&navpanes=0&scrollbar=0" width="100%" height="100%" style="border:none;"></iframe>
+    </div>
+  `;
 
   modal.classList.remove("hidden");
 }
@@ -376,7 +410,7 @@ function closeModal(modalId) {
   document.getElementById(modalId).classList.add("hidden");
 }
 
-/* AI Assistant Logic */
+/* Floating AI Assistant Widget */
 function toggleAiChat() {
   document.getElementById("aiChatBox").classList.toggle("hidden");
 }
