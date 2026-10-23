@@ -8,10 +8,9 @@ const firebaseConfig = {
   appId: "1:1062402927230:web:9c1a539b5b4e3e3b3922f3"
 };
 
-// Initialize Firebase App & Services
+// Initialize Firebase App & Database
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-const storage = firebase.storage();
 
 let isUnlocked = localStorage.getItem("aastu_access_unlocked") === "true";
 let currentSemester = 1;
@@ -207,22 +206,9 @@ function toggleYearGroup(id) {
   document.getElementById(id).classList.toggle("hidden");
 }
 
-function previewScreenshot(event) {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      document.getElementById("screenshotPreview").src = e.target.result;
-      document.getElementById("previewContainer").classList.remove("hidden");
-    };
-    reader.readAsDataURL(file);
-  }
-}
-
 async function processPayment() {
   const phone = document.getElementById("studentPhone").value.trim();
   const txnRef = document.getElementById("txnRef").value.trim();
-  const fileInput = document.getElementById("screenshotInput");
   const submitBtn = document.getElementById("submitPayBtn");
 
   if (!phone || phone.length < 9) {
@@ -230,30 +216,19 @@ async function processPayment() {
     return;
   }
 
-  if (!txnRef && fileInput.files.length === 0) {
-    alert("Please enter a payment transaction code OR attach a receipt screenshot.");
+  if (!txnRef) {
+    alert("Please enter your CBE or Telebirr payment transaction reference code.");
     return;
   }
 
   submitBtn.disabled = true;
-  submitBtn.innerText = "Uploading & Saving...";
+  submitBtn.innerText = "Submitting to Database...";
 
   try {
-    let receiptUrl = "";
-
-    // Upload receipt image to Firebase Storage
-    if (fileInput.files.length > 0) {
-      const file = fileInput.files[0];
-      const storageRef = storage.ref(`receipts/${Date.now()}_${file.name}`);
-      const uploadTask = await storageRef.put(file);
-      receiptUrl = await uploadTask.ref.getDownloadURL();
-    }
-
-    // Save payment record to Firestore Database
+    // Save payment record straight to Firestore Database
     await db.collection("payments").add({
       phone: phone,
-      txnRef: txnRef || "N/A",
-      receiptUrl: receiptUrl,
+      txnRef: txnRef,
       status: "pending",
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
     });
@@ -264,7 +239,7 @@ async function processPayment() {
 
     closeModal("paymentModal");
     renderCourses();
-    alert("Payment submitted and recorded in database! All freshman exam papers are now unlocked.");
+    alert("Payment transaction reference submitted successfully! All freshman exam papers are now unlocked.");
   } catch (error) {
     console.error("Firebase Error:", error);
     alert("Submission error: " + error.message);
@@ -320,15 +295,13 @@ function sendAiMessage() {
   input.value = "";
 
   setTimeout(() => {
-    let reply = "I am here to help you navigate the portal! Ask me about buying access, uploading payment receipts, or contacting Sagni Miressa.";
+    let reply = "I am here to help you navigate the portal! Ask me about buying access, submitting payment codes, or contacting Sagni Miressa.";
     const query = text.toLowerCase();
 
     if (query.includes("buy") || query.includes("payment") || query.includes("unlock")) {
-      reply = "To buy access:\n1. Click 'Unlock (100 ETB)'.\n2. Transfer 100 ETB via CBE (1000654224657 - Sagni Miressa) or Telebirr (0944899465 - Abebe Jabessa).\n3. Enter phone number, transaction code or upload receipt screenshot!";
+      reply = "To buy access:\n1. Click 'Unlock (100 ETB)'.\n2. Transfer 100 ETB via CBE (1000654224657 - Sagni Miressa) or Telebirr (0944899465 - Abebe Jabessa).\n3. Enter your phone number & payment reference code!";
     } else if (query.includes("owner") || query.includes("sagni") || query.includes("contact")) {
       reply = "The portal owner is Sagni Miressa. Contact via Telegram @samirgob or call 0944899465.";
-    } else if (query.includes("receipt") || query.includes("upload") || query.includes("screenshot")) {
-      reply = "Open the Unlock modal, choose your screenshot under 'Upload Payment Receipt Screenshot', and click Submit Payment Verification!";
     }
 
     appendAiMsg(reply, "bot");
