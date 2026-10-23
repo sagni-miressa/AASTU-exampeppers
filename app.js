@@ -1,4 +1,19 @@
-let isUnlocked = false;
+// Firebase Project Configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAz_RU2rTvyr_fe3DmfwBUpVj2zxoyx7a4",
+  authDomain: "aastu-exampeppers.firebaseapp.com",
+  projectId: "aastu-exampeppers",
+  storageBucket: "aastu-exampeppers.firebasestorage.app",
+  messagingSenderId: "1062402927230",
+  appId: "1:1062402927230:web:9c1a539b5b4e3e3b3922f3"
+};
+
+// Initialize Firebase App & Services
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const storage = firebase.storage();
+
+let isUnlocked = localStorage.getItem("aastu_access_unlocked") === "true";
 let currentSemester = 1;
 let searchQuery = "";
 
@@ -90,6 +105,10 @@ const courses = {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+  if (isUnlocked) {
+    applyUnlockedUI();
+  }
+
   renderCourses();
 
   document.getElementById("unlockBtn").addEventListener("click", () => {
@@ -101,6 +120,12 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCourses();
   });
 });
+
+function applyUnlockedUI() {
+  document.getElementById("accessBadge").className = "status-badge unlocked";
+  document.getElementById("accessBadge").innerText = "✅ UNLOCKED";
+  document.getElementById("unlockBtn").style.display = "none";
+}
 
 function showPage(pageName, event) {
   document.querySelectorAll(".page-section").forEach(sec => sec.classList.add("hidden"));
@@ -194,23 +219,59 @@ function previewScreenshot(event) {
   }
 }
 
-function processPayment() {
-  const txnRef = document.getElementById("txnRef").value;
+async function processPayment() {
+  const phone = document.getElementById("studentPhone").value.trim();
+  const txnRef = document.getElementById("txnRef").value.trim();
   const fileInput = document.getElementById("screenshotInput");
+  const submitBtn = document.getElementById("submitPayBtn");
+
+  if (!phone || phone.length < 9) {
+    alert("Please enter a valid phone number.");
+    return;
+  }
 
   if (!txnRef && fileInput.files.length === 0) {
     alert("Please enter a payment transaction code OR attach a receipt screenshot.");
     return;
   }
 
-  isUnlocked = true;
-  document.getElementById("accessBadge").className = "status-badge unlocked";
-  document.getElementById("accessBadge").innerText = "✅ UNLOCKED";
-  document.getElementById("unlockBtn").style.display = "none";
+  submitBtn.disabled = true;
+  submitBtn.innerText = "Uploading & Saving...";
 
-  closeModal("paymentModal");
-  renderCourses();
-  alert("Payment verified successfully! All AASTU freshman papers are unlocked.");
+  try {
+    let receiptUrl = "";
+
+    // Upload receipt image to Firebase Storage
+    if (fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      const storageRef = storage.ref(`receipts/${Date.now()}_${file.name}`);
+      const uploadTask = await storageRef.put(file);
+      receiptUrl = await uploadTask.ref.getDownloadURL();
+    }
+
+    // Save payment record to Firestore Database
+    await db.collection("payments").add({
+      phone: phone,
+      txnRef: txnRef || "N/A",
+      receiptUrl: receiptUrl,
+      status: "pending",
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    isUnlocked = true;
+    localStorage.setItem("aastu_access_unlocked", "true");
+    applyUnlockedUI();
+
+    closeModal("paymentModal");
+    renderCourses();
+    alert("Payment submitted and recorded in database! All freshman exam papers are now unlocked.");
+  } catch (error) {
+    console.error("Firebase Error:", error);
+    alert("Submission error: " + error.message);
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerText = "Submit Payment Verification";
+  }
 }
 
 function openPaper(course, paper) {
@@ -236,7 +297,7 @@ function closeModal(modalId) {
   document.getElementById(modalId).classList.add("hidden");
 }
 
-/* Floating AI Assistant Logic */
+/* AI Assistant Logic */
 function toggleAiChat() {
   document.getElementById("aiChatBox").classList.toggle("hidden");
 }
@@ -263,11 +324,11 @@ function sendAiMessage() {
     const query = text.toLowerCase();
 
     if (query.includes("buy") || query.includes("payment") || query.includes("unlock")) {
-      reply = "To buy access:\n1. Click 'Unlock (100 ETB)'.\n2. Transfer 100 ETB via CBE (1000654224657 - Sagni Miressa) or Telebirr (0944899465 - Abebe Jabessa).\n3. Enter transaction code or upload receipt screenshot!";
+      reply = "To buy access:\n1. Click 'Unlock (100 ETB)'.\n2. Transfer 100 ETB via CBE (1000654224657 - Sagni Miressa) or Telebirr (0944899465 - Abebe Jabessa).\n3. Enter phone number, transaction code or upload receipt screenshot!";
     } else if (query.includes("owner") || query.includes("sagni") || query.includes("contact")) {
       reply = "The portal owner is Sagni Miressa. Contact via Telegram @samirgob or call 0944899465.";
     } else if (query.includes("receipt") || query.includes("upload") || query.includes("screenshot")) {
-      reply = "Open the Unlock modal, choose your screenshot under 'Upload Payment Screenshot', and click Submit Verification!";
+      reply = "Open the Unlock modal, choose your screenshot under 'Upload Payment Receipt Screenshot', and click Submit Payment Verification!";
     }
 
     appendAiMsg(reply, "bot");

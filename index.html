@@ -4,8 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AASTU EXAM PAPERS</title>
-  <link rel="stylesheet" href="./styles.css?v=2.0" />
+  <link rel="stylesheet" href="./styles.css?v=3.0" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
+  <!-- Firebase Web SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
 </head>
 <body>
 
@@ -98,7 +103,7 @@
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal('paymentModal')">&times;</span>
       <h3>Unlock Full Access (100 ETB)</h3>
-      <p class="modal-sub">Transfer 100 ETB and attach screenshot/transaction code:</p>
+      <p class="modal-sub">Transfer 100 ETB and attach receipt screenshot or reference code:</p>
 
       <div class="payment-box">
         <div class="pay-item">
@@ -115,19 +120,24 @@
       </div>
 
       <div class="form-group">
+        <label for="studentPhone"><strong>Your Phone Number:</strong></label>
+        <input type="text" id="studentPhone" placeholder="09xxxxxxxx" />
+      </div>
+
+      <div class="form-group">
         <label for="txnRef"><strong>Transaction Reference Code:</strong></label>
         <input type="text" id="txnRef" placeholder="e.g. TXN12345678" />
       </div>
 
       <div class="form-group">
-        <label for="screenshotInput"><strong>Upload Payment Screenshot:</strong></label>
+        <label for="screenshotInput"><strong>Upload Payment Receipt Screenshot:</strong></label>
         <input type="file" id="screenshotInput" accept="image/*" onchange="previewScreenshot(event)" />
         <div id="previewContainer" class="preview-box hidden">
           <img id="screenshotPreview" src="" alt="Payment Receipt Preview" />
         </div>
       </div>
 
-      <button onclick="processPayment()" class="btn-success">Submit Payment Verification</button>
+      <button id="submitPayBtn" onclick="processPayment()" class="btn-success">Submit Payment Verification</button>
     </div>
   </div>
 
@@ -140,7 +150,7 @@
     </div>
   </div>
 
-  <!-- Floating AI Floating Widget Button & Chat Window -->
+  <!-- Floating AI Widget -->
   <div class="ai-floating-container">
     <button class="ai-fab-btn" onclick="toggleAiChat()" title="Ask AI Assistant">
       🤖
@@ -171,11 +181,11 @@
     </div>
   </div>
 
-  <!-- Short Centered Footer -->
+  <!-- Footer -->
   <footer class="footer">
     <p>© Sagni Miressa</p>
   </footer>
 
-  <script src="./app.js?v=2.0"></script>
+  <script src="./app.js?v=3.0"></script>
 </body>
 </html>
