@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - AASTU Exam Papers</title>
+  <link rel="stylesheet" href="./styles.css?v=3.0" />
+  <!-- Firebase Web SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <style>
+    .admin-card {
+      max-width: 500px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .pin-display {
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: 4px;
+      color: #059669;
+      background: #ecfdf5;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      margin: 16px 0;
+      border: 2px dashed #059669;
+    }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo-container">
+      <span class="logo-badge">ADMIN</span>
+      <h1>PIN GENERATOR</h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- LOGIN FORM -->
+    <div id="loginCard" class="admin-card">
+      <h3>Owner Login</h3>
+      <p style="color: #666; font-size: 0.9rem;">Enter your master admin password to generate access PINs.</p>
+      <div class="form-group" style="margin-top: 15px;">
+        <input type="password" id="adminPass" placeholder="Enter admin password..." />
+      </div>
+      <button onclick="loginAdmin()" class="btn-primary" style="width: 100%;">Login to Dashboard</button>
+    </div>
+
+    <!-- DASHBOARD (Hidden until logged in) -->
+    <div id="dashCard" class="admin-card hidden">
+      <h3>⚡ 1-Time Access PIN Generator</h3>
+      <p style="color: #666; font-size: 0.9rem;">Click below to generate a secure PIN for a student who paid 100 ETB.</p>
+
+      <button onclick="generatePin()" class="btn-success" style="width: 100%; margin-top: 15px; font-size: 1.1rem; padding: 12px;">
+        🎲 Generate & Save New PIN
+      </button>
+
+      <div id="pinBox" class="hidden">
+        <div id="pinResult" class="pin-display">------</div>
+        <button onclick="copyPin()" class="btn-primary" style="width: 100%;">📋 Copy PIN & Telegram Message</button>
+      </div>
+
+      <hr style="margin: 25px 0; border: none; border-top: 1px solid #eee;" />
+
+      <h4>Active & Used PINs History</h4>
+      <button onclick="loadPinsHistory()" class="nav-bubble" style="margin-bottom: 10px;">🔄 Refresh List</button>
+      <div id="pinsList" style="max-height: 250px; overflow-y: auto; font-size: 0.85rem;"></div>
+    </div>
+  </main>
+
+  <script src="./admin.js?v=1.0"></script>
+</body>
+</html>
