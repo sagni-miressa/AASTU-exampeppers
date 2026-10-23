@@ -16,46 +16,92 @@ let isUnlocked = localStorage.getItem("aastu_access_unlocked") === "true";
 let currentSemester = 1;
 let searchQuery = "";
 
+// Course Data with file paths mapped to your exams/ folder
 const courses = {
   1: [
     {
       name: "Communicative English Language Skills I", code: "ENG101",
       years: {
-        "2016": ["2016 Midterm (PDF)", "2016 Final (PDF)"],
-        "2017": ["2017 Midterm (PDF)", "2017 Final (IMG)"],
-        "2018": ["2018 Midterm (PDF)", "2018 Final (PDF)"]
+        "2016": [
+          { title: "2016 Midterm (PDF)", file: "./exams/eng101-2016-mid.pdf" },
+          { title: "2016 Final (PDF)", file: "./exams/eng101-2016-final.pdf" }
+        ],
+        "2017": [
+          { title: "2017 Midterm (PDF)", file: "./exams/eng101-2017-mid.pdf" },
+          { title: "2017 Final (PDF)", file: "./exams/eng101-2017-final.pdf" }
+        ],
+        "2018": [
+          { title: "2018 Midterm (PDF)", file: "./exams/eng101-2018-mid.pdf" },
+          { title: "2018 Final (PDF)", file: "./exams/eng101-2018-final.pdf" }
+        ]
       }
     },
     {
       name: "General Psychology", code: "PSY101",
       years: {
-        "2016": ["2016 Midterm (PDF)", "2016 Final (PDF)"],
-        "2017": ["2017 Midterm (PDF)", "2017 Final (PDF)"],
-        "2018": ["2018 Midterm (PDF)", "2018 Final (PDF)"]
+        "2016": [
+          { title: "2016 Midterm (PDF)", file: "./exams/psy101-2016-mid.pdf" },
+          { title: "2016 Final (PDF)", file: "./exams/psy101-2016-final.pdf" }
+        ],
+        "2017": [
+          { title: "2017 Midterm (PDF)", file: "./exams/psy101-2017-mid.pdf" },
+          { title: "2017 Final (PDF)", file: "./exams/psy101-2017-final.pdf" }
+        ],
+        "2018": [
+          { title: "2018 Midterm (PDF)", file: "./exams/psy101-2018-mid.pdf" },
+          { title: "2018 Final (PDF)", file: "./exams/psy101-2018-final.pdf" }
+        ]
       }
     },
     {
       name: "Applied Mathematics I", code: "MATH101",
       years: {
-        "2016": ["2016 Midterm (PDF)", "2016 Final (PDF)"],
-        "2017": ["2017 Midterm (PDF)", "2017 Final (IMG)"],
-        "2018": ["2018 Midterm (PDF)", "2018 Final (PDF)"]
+        "2016": [
+          { title: "2016 Midterm (PDF)", file: "./exams/math101-2016-mid.pdf" },
+          { title: "2016 Final (PDF)", file: "./exams/math101-2016-final.pdf" }
+        ],
+        "2017": [
+          { title: "2017 Midterm (PDF)", file: "./exams/math101-2017-mid.pdf" },
+          { title: "2017 Final (PDF)", file: "./exams/math101-2017-final.pdf" }
+        ],
+        "2018": [
+          { title: "2018 Midterm (PDF)", file: "./exams/math101-2018-mid.pdf" },
+          { title: "2018 Final (PDF)", file: "./exams/math101-2018-final.pdf" }
+        ]
       }
     },
     {
       name: "Logic & Critical Thinking", code: "LOG101",
       years: {
-        "2016": ["2016 Midterm (PDF)", "2016 Final (PDF)"],
-        "2017": ["2017 Midterm (PDF)", "2017 Final (PDF)"],
-        "2018": ["2018 Midterm (PDF)", "2018 Final (PDF)"]
+        "2016": [
+          { title: "2016 Midterm (PDF)", file: "./exams/log101-2016-mid.pdf" },
+          { title: "2016 Final (PDF)", file: "./exams/log101-2016-final.pdf" }
+        ],
+        "2017": [
+          { title: "2017 Midterm (PDF)", file: "./exams/log101-2017-mid.pdf" },
+          { title: "2017 Final (PDF)", file: "./exams/log101-2017-final.pdf" }
+        ],
+        "2018": [
+          { title: "2018 Midterm (PDF)", file: "./exams/log101-2018-mid.pdf" },
+          { title: "2018 Final (PDF)", file: "./exams/log101-2018-final.pdf" }
+        ]
       }
     },
     {
       name: "General Mathematics", code: "MATH100",
       years: {
-        "2016": ["2016 Midterm (PDF)", "2016 Final (PDF)"],
-        "2017": ["2017 Midterm (PDF)", "2017 Final (PDF)"],
-        "2018": ["2018 Midterm (PDF)", "2018 Final (PDF)"]
+        "2016": [
+          { title: "2016 Midterm (PDF)", file: "./exams/math100-2016-mid.pdf" },
+          { title: "2016 Final (PDF)", file: "./exams/math100-2016-final.pdf" }
+        ],
+        "2017": [
+          { title: "2017 Midterm (PDF)", file: "./exams/math100-2017-mid.pdf" },
+          { title: "2017 Final (PDF)", file: "./exams/math100-2017-final.pdf" }
+        ],
+        "2018": [
+          { title: "2018 Midterm (PDF)", file: "./exams/math100-2018-mid.pdf" },
+          { title: "2018 Final (PDF)", file: "./exams/math100-2018-final.pdf" }
+        ]
       }
     }
   ],
@@ -63,41 +109,83 @@ const courses = {
     {
       name: "Communicative English Language Skills II", code: "ENG102",
       years: {
-        "2016": ["2016 Midterm (PDF)", "2016 Final (PDF)"],
-        "2017": ["2017 Midterm (PDF)", "2017 Final (PDF)"],
-        "2018": ["2018 Midterm (PDF)", "2018 Final (PDF)"]
+        "2016": [
+          { title: "2016 Midterm (PDF)", file: "./exams/eng102-2016-mid.pdf" },
+          { title: "2016 Final (PDF)", file: "./exams/eng102-2016-final.pdf" }
+        ],
+        "2017": [
+          { title: "2017 Midterm (PDF)", file: "./exams/eng102-2017-mid.pdf" },
+          { title: "2017 Final (PDF)", file: "./exams/eng102-2017-final.pdf" }
+        ],
+        "2018": [
+          { title: "2018 Midterm (PDF)", file: "./exams/eng102-2018-mid.pdf" },
+          { title: "2018 Final (PDF)", file: "./exams/eng102-2018-final.pdf" }
+        ]
       }
     },
     {
       name: "Entrepreneurship", code: "ENT102",
       years: {
-        "2016": ["2016 Midterm (PDF)", "2016 Final (PDF)"],
-        "2017": ["2017 Midterm (PDF)", "2017 Final (PDF)"],
-        "2018": ["2018 Midterm (PDF)", "2018 Final (PDF)"]
+        "2016": [
+          { title: "2016 Midterm (PDF)", file: "./exams/ent102-2016-mid.pdf" },
+          { title: "2016 Final (PDF)", file: "./exams/ent102-2016-final.pdf" }
+        ],
+        "2017": [
+          { title: "2017 Midterm (PDF)", file: "./exams/ent102-2017-mid.pdf" },
+          { title: "2017 Final (PDF)", file: "./exams/ent102-2017-final.pdf" }
+        ],
+        "2018": [
+          { title: "2018 Midterm (PDF)", file: "./exams/ent102-2018-mid.pdf" },
+          { title: "2018 Final (PDF)", file: "./exams/ent102-2018-final.pdf" }
+        ]
       }
     },
     {
       name: "Social Anthropology", code: "ANT102",
       years: {
-        "2016": ["2016 Midterm (PDF)", "2016 Final (PDF)"],
-        "2017": ["2017 Midterm (PDF)", "2017 Final (PDF)"],
-        "2018": ["2018 Midterm (PDF)", "2018 Final (PDF)"]
+        "2016": [
+          { title: "2016 Midterm (PDF)", file: "./exams/ant102-2016-mid.pdf" },
+          { title: "2016 Final (PDF)", file: "./exams/ant102-2016-final.pdf" }
+        ],
+        "2017": [
+          { title: "2017 Midterm (PDF)", file: "./exams/ant102-2017-mid.pdf" },
+          { title: "2017 Final (PDF)", file: "./exams/ant102-2017-final.pdf" }
+        ],
+        "2018": [
+          { title: "2018 Midterm (PDF)", file: "./exams/ant102-2018-mid.pdf" },
+          { title: "2018 Final (PDF)", file: "./exams/ant102-2018-final.pdf" }
+        ]
       }
     },
     {
       name: "Emerging Technologies", code: "EMTG102",
       years: {
-        "2016": ["2016 Midterm (PDF)", "2016 Final (PDF)"],
-        "2017": ["2017 Midterm (PDF)", "2017 Final (PDF)"],
-        "2018": ["2018 Midterm (PDF)", "2018 Final (PDF)"]
+        "2016": [
+          { title: "2016 Midterm (PDF)", file: "./exams/emtg102-2016-mid.pdf" },
+          { title: "2016 Final (PDF)", file: "./exams/emtg102-2016-final.pdf" }
+        ],
+        "2017": [
+          { title: "2017 Midterm (PDF)", file: "./exams/emtg102-2017-mid.pdf" },
+          { title: "2017 Final (PDF)", file: "./exams/emtg102-2017-final.pdf" }
+        ],
+        "2018": [
+          { title: "2018 Midterm (PDF)", file: "./exams/emtg102-2018-mid.pdf" },
+          { title: "2018 Final (PDF)", file: "./exams/emtg102-2018-final.pdf" }
+        ]
       }
     },
     {
       name: "Health & Physical Education", code: "HPE102",
       years: {
-        "2016": ["2016 Final (PDF)"],
-        "2017": ["2017 Final (PDF)"],
-        "2018": ["2018 Final (PDF)"]
+        "2016": [
+          { title: "2016 Final (PDF)", file: "./exams/hpe102-2016-final.pdf" }
+        ],
+        "2017": [
+          { title: "2017 Final (PDF)", file: "./exams/hpe102-2017-final.pdf" }
+        ],
+        "2018": [
+          { title: "2018 Final (PDF)", file: "./exams/hpe102-2018-final.pdf" }
+        ]
       }
     }
   ]
@@ -121,9 +209,15 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function applyUnlockedUI() {
-  document.getElementById("accessBadge").className = "status-badge unlocked";
-  document.getElementById("accessBadge").innerText = "✅ UNLOCKED";
-  document.getElementById("unlockBtn").style.display = "none";
+  const badge = document.getElementById("accessBadge");
+  if (badge) {
+    badge.className = "status-badge unlocked";
+    badge.innerText = "✅ UNLOCKED";
+  }
+  const unlockBtn = document.getElementById("unlockBtn");
+  if (unlockBtn) {
+    unlockBtn.style.display = "none";
+  }
 }
 
 function showPage(pageName, event) {
@@ -152,6 +246,7 @@ function switchSemester(sem) {
 
 function renderCourses() {
   const grid = document.getElementById("courseGrid");
+  if (!grid) return;
   grid.innerHTML = "";
 
   const filtered = courses[currentSemester].filter(c => 
@@ -173,9 +268,9 @@ function renderCourses() {
       const yearContainerId = `yr-${courseIdx}-${yr}`;
 
       let paperBtnsHTML = papers.map(p => `
-        <button class="paper-btn" onclick="openPaper('${course.name}', '${p}')">
-          <span>📄 ${p}</span>
-          <span>${isUnlocked ? '👀 View' : '🔒 Locked'}</span>
+        <button class="paper-btn" onclick="openPaper('${course.name}', '${p.title}', '${p.file}')">
+          <span>📄 ${p.title}</span>
+          <span>${isUnlocked ? '👀 View PDF' : '🔒 Locked'}</span>
         </button>
       `).join("");
 
@@ -219,13 +314,12 @@ async function processPayment() {
   submitBtn.innerText = "Verifying PIN...";
 
   try {
-    // Search Firebase for the entered PIN
     const pinQuery = await db.collection("access_pins")
       .where("pin", "==", enteredPin)
       .get();
 
     if (pinQuery.empty) {
-      alert("Invalid Access PIN! Please contact @samirgob on Telegram to get a valid PIN.");
+      alert("Invalid Access PIN! Please contact @samirgob on Telegram to receive your valid PIN.");
       submitBtn.disabled = false;
       submitBtn.innerText = "Verify PIN & Unlock";
       return;
@@ -234,7 +328,6 @@ async function processPayment() {
     const pinDoc = pinQuery.docs[0];
     const pinData = pinDoc.data();
 
-    // Check if the PIN has already been used by someone else
     if (pinData.used === true) {
       alert("This Access PIN has already been used and is now expired!");
       submitBtn.disabled = false;
@@ -242,20 +335,18 @@ async function processPayment() {
       return;
     }
 
-    // Mark the PIN as USED in Firebase so nobody else can use it
     await db.collection("access_pins").doc(pinDoc.id).update({
       used: true,
       usedAt: firebase.firestore.FieldValue.serverTimestamp()
     });
 
-    // Permanently unlock access on this student's device
     isUnlocked = true;
     localStorage.setItem("aastu_access_unlocked", "true");
     applyUnlockedUI();
 
     closeModal("paymentModal");
     renderCourses();
-    alert("Success! Your 1-time Access PIN has been verified and redeemed. All exam papers are unlocked.");
+    alert("Success! Your 1-time Access PIN has been verified. All freshman exam papers are unlocked.");
 
   } catch (error) {
     console.error("Verification Error:", error);
@@ -266,21 +357,17 @@ async function processPayment() {
   }
 }
 
-function openPaper(course, paper) {
+function openPaper(course, paperTitle, filePath) {
   if (!isUnlocked) {
     document.getElementById("paymentModal").classList.remove("hidden");
     return;
   }
 
   const modal = document.getElementById("viewerModal");
-  document.getElementById("viewerTitle").innerText = `${course} - ${paper}`;
+  document.getElementById("viewerTitle").innerText = `${course} - ${paperTitle}`;
   
   const body = document.getElementById("viewerBody");
-  if (paper.includes("(PDF)")) {
-    body.innerHTML = `<iframe src="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" width="100%" height="400px"></iframe>`;
-  } else {
-    body.innerHTML = `<img src="https://via.placeholder.com/600x800?text=AASTU+Exam+Paper+Image" style="max-width:100%; height:auto;" />`;
-  }
+  body.innerHTML = `<iframe src="${filePath}" width="100%" height="500px" style="border:none; border-radius:8px;"></iframe>`;
 
   modal.classList.remove("hidden");
 }
@@ -312,11 +399,11 @@ function sendAiMessage() {
   input.value = "";
 
   setTimeout(() => {
-    let reply = "I am here to help you navigate the portal! Ask me about buying access, submitting payment codes, or contacting Sagni Miressa.";
+    let reply = "I am here to help you navigate the portal! Ask me about buying access, submitting payment PINs, or contacting Sagni Miressa.";
     const query = text.toLowerCase();
 
     if (query.includes("buy") || query.includes("payment") || query.includes("unlock")) {
-      reply = "To buy access:\n1. Click 'Unlock (100 ETB)'.\n2. Transfer 100 ETB via CBE (1000654224657 - Sagni Miressa) or Telebirr (0944899465 - Abebe Jabessa).\n3. Enter your phone number & payment reference code!";
+      reply = "To buy access:\n1. Click 'Unlock (100 ETB)'.\n2. Transfer 100 ETB via CBE (1000654224657 - Sagni Miressa) or Telebirr (0944899465 - Abebe Jabessa).\n3. Send receipt screenshot to @samirgob on Telegram to get your 1-time Access PIN!";
     } else if (query.includes("owner") || query.includes("sagni") || query.includes("contact")) {
       reply = "The portal owner is Sagni Miressa. Contact via Telegram @samirgob or call 0944899465.";
     }
@@ -327,6 +414,7 @@ function sendAiMessage() {
 
 function appendAiMsg(text, sender) {
   const container = document.getElementById("aiMessages");
+  if (!container) return;
   const msgDiv = document.createElement("div");
   msgDiv.className = `ai-msg ${sender}`;
   msgDiv.innerText = text;
