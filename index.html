@@ -5,39 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AASTU EXAM PAPERS</title>
   <link rel="stylesheet" href="./styles.css" />
-  <!-- PDF rendering library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 </head>
 <body>
 
-  <!-- Top Navigation Header -->
+  <!-- Top Navigation -->
   <header class="navbar">
-    <div class="logo">
+    <div class="logo-container">
       <span class="logo-badge">AASTU</span>
       <h1>EXAM PAPERS</h1>
     </div>
     <div class="user-status">
       <span id="accessBadge" class="status-badge locked">🔒 LOCKED</span>
-      <button id="unlockBtn" class="btn-primary">Unlock (100 ETB)</button>
+      <button id="unlockBtn" class="btn-primary">Unlock All (100 ETB)</button>
     </div>
   </header>
 
-  <!-- Hero / Semester Banner -->
-  <section class="banner">
-    <h2>Freshman Exam Preparation Portal</h2>
-    <p>Access verified midterms, finals, and quizzes in PDF & Image formats.</p>
+  <!-- Hero Section -->
+  <section class="hero">
+    <h2>Freshman Exam Portal</h2>
+    <p>Access verified midterms, finals, and quizzes across all official AASTU courses.</p>
     
-    <div class="semester-tabs">
-      <button class="tab-btn active" onclick="switchSemester(1)">Semester 1</button>
-      <button class="tab-btn" onclick="switchSemester(2)">Semester 2</button>
+    <div class="controls-bar">
+      <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search course name or code (e.g. ENG101, Math)..." />
+      <div class="semester-tabs">
+        <button class="tab-btn active" onclick="switchSemester(1)">Semester 1</button>
+        <button class="tab-btn" onclick="switchSemester(2)">Semester 2</button>
+      </div>
     </div>
   </section>
 
-  <!-- Main Course Grid Section -->
+  <!-- Course Grid -->
   <main class="container">
-    <div id="courseGrid" class="course-grid">
-      <!-- Courses will be rendered dynamically via JS -->
-    </div>
+    <div id="courseGrid" class="course-grid"></div>
   </main>
 
   <!-- Payment Modal -->
@@ -45,40 +45,26 @@
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal('paymentModal')">&times;</span>
       <h3>Unlock Full Access</h3>
-      <p>Pay <strong>100 ETB</strong> via Telebirr or Chapa to access all semester papers.</p>
-
-      <div class="payment-methods">
-        <label class="pay-option">
-          <input type="radio" name="payment" value="telebirr" checked />
-          <span>Telebirr</span>
-        </label>
-        <label class="pay-option">
-          <input type="radio" name="payment" value="chapa" />
-          <span>Chapa / CBE Birr</span>
-        </label>
-      </div>
+      <p style="color: var(--text-muted); margin-top: 4px;">Pay <strong>100 ETB</strong> via Telebirr or Chapa to download and view all papers.</p>
 
       <div class="form-group">
-        <label for="phone">Phone Number:</label>
+        <label for="phone"><strong>Telebirr / CBE Phone Number:</strong></label>
         <input type="text" id="phone" placeholder="09xxxxxxxx" />
       </div>
 
-      <button onclick="processPayment()" class="btn-success">Confirm Payment (100 ETB)</button>
+      <button onclick="processPayment()" class="btn-success">Confirm 100 ETB Payment</button>
     </div>
   </div>
 
-  <!-- Document Viewer Modal (PDF/Images) -->
+  <!-- Viewer Modal -->
   <div id="viewerModal" class="modal hidden">
     <div class="modal-content large">
       <span class="close-btn" onclick="closeModal('viewerModal')">&times;</span>
-      <h3 id="viewerTitle">Exam Document Viewer</h3>
-      
-      <div id="viewerBody" class="viewer-body">
-        <!-- Content inserted dynamically -->
-      </div>
+      <h3 id="viewerTitle">Document Viewer</h3>
+      <div id="viewerBody"></div>
     </div>
   </div>
 
-  <script src="app.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
