@@ -32,6 +32,30 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+function showPage(pageName) {
+  document.querySelectorAll(".page-section").forEach(sec => sec.classList.add("hidden"));
+  document.querySelectorAll(".nav-item").forEach(nav => nav.classList.remove("active"));
+
+  if (pageName === 'home') {
+    document.getElementById("homePage").classList.remove("hidden");
+  } else if (pageName === 'about') {
+    document.getElementById("aboutPage").classList.remove("hidden");
+  } else if (pageName === 'contact') {
+    document.getElementById("contactPage").classList.remove("hidden");
+  }
+
+  event.target.classList.add("active");
+}
+
+function switchSemester(sem) {
+  currentSemester = sem;
+  
+  document.getElementById("sem1Card").classList.toggle("active", sem === 1);
+  document.getElementById("sem2Card").classList.toggle("active", sem === 2);
+
+  renderCourses();
+}
+
 function renderCourses() {
   const grid = document.getElementById("courseGrid");
   grid.innerHTML = "";
@@ -51,7 +75,7 @@ function renderCourses() {
 
     let paperListHTML = course.papers.map(p => `
       <div class="paper-item" onclick="openPaper('${course.name}', '${p.name}', '${p.type}')">
-        <div class="paper-info">
+        <div style="display:flex; align-items:center; gap:8px;">
           <span class="${p.type === 'pdf' ? 'tag-pdf' : 'tag-img'}">${p.type.toUpperCase()}</span>
           <span>${p.name}</span>
         </div>
@@ -71,18 +95,10 @@ function renderCourses() {
   });
 }
 
-function switchSemester(sem) {
-  currentSemester = sem;
-  document.querySelectorAll(".tab-btn").forEach((btn, idx) => {
-    btn.classList.toggle("active", idx + 1 === sem);
-  });
-  renderCourses();
-}
-
 function processPayment() {
-  const phone = document.getElementById("phone").value;
-  if (!phone || phone.length < 9) {
-    alert("Please enter a valid phone number (e.g. 0912345678).");
+  const txnRef = document.getElementById("txnRef").value;
+  if (!txnRef || txnRef.trim().length < 4) {
+    alert("Please enter a valid transaction reference code.");
     return;
   }
 
@@ -93,7 +109,7 @@ function processPayment() {
 
   closeModal("paymentModal");
   renderCourses();
-  alert("Payment verified! All freshman exam papers are now accessible.");
+  alert("Payment submission received! All freshman exam papers are now unlocked.");
 }
 
 function openPaper(course, paperName, paperType) {
@@ -109,13 +125,12 @@ function openPaper(course, paperName, paperType) {
   if (paperType === "pdf") {
     body.innerHTML = `
       <div style="padding:1rem; text-align:center;">
-        <p style="margin-bottom: 1rem; color: var(--text-muted);">Interactive PDF Document Preview</p>
         <iframe src="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" width="100%" height="450px" style="border-radius: 8px; border: 1px solid var(--border-color);"></iframe>
       </div>`;
   } else {
     body.innerHTML = `
       <div style="padding:1rem; text-align:center;">
-        <img src="https://via.placeholder.com/600x800?text=AASTU+Past+Exam+Picture" style="max-width:100%; height:auto; border-radius: 8px; box-shadow: var(--shadow-md);" />
+        <img src="https://via.placeholder.com/600x800?text=AASTU+Past+Exam+Picture" style="max-width:100%; height:auto; border-radius: 8px;" />
       </div>`;
   }
 
