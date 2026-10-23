@@ -207,45 +207,62 @@ function toggleYearGroup(id) {
 }
 
 async function processPayment() {
-  const phone = document.getElementById("studentPhone").value.trim();
-  const txnRef = document.getElementById("txnRef").value.trim();
+  const enteredPin = document.getElementById("txnRef").value.trim();
   const submitBtn = document.getElementById("submitPayBtn");
 
-  if (!phone || phone.length < 9) {
-    alert("Please enter a valid phone number.");
-    return;
-  }
-
-  if (!txnRef) {
-    alert("Please enter your CBE or Telebirr payment transaction reference code.");
+  if (!enteredPin) {
+    alert("Please enter the Access PIN provided by Sagni Miressa on Telegram.");
     return;
   }
 
   submitBtn.disabled = true;
-  submitBtn.innerText = "Submitting to Database...";
+  submitBtn.innerText = "Verifying PIN...";
 
   try {
-    // Save payment record straight to Firestore Database
-    await db.collection("payments").add({
-      phone: phone,
-      txnRef: txnRef,
-      status: "pending",
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    // Search Firebase for the entered PIN
+    const pinQuery = await db.collection("access_pins")
+      .where("pin", "==", enteredPin)
+      .get();
+
+    if (pinQuery.empty) {
+      alert("Invalid Access PIN! Please contact @samirgob on Telegram to get a valid PIN.");
+      submitBtn.disabled = false;
+      submitBtn.innerText = "Verify PIN & Unlock";
+      return;
+    }
+
+    const pinDoc = pinQuery.docs[0];
+    const pinData = pinDoc.data();
+
+    // Check if the PIN has already been used by someone else
+    if (pinData.used === true) {
+      alert("This Access PIN has already been used and is now expired!");
+      submitBtn.disabled = false;
+      submitBtn.innerText = "Verify PIN & Unlock";
+      return;
+    }
+
+    // Mark the PIN as USED in Firebase so nobody else can use it
+    await db.collection("access_pins").doc(pinDoc.id).update({
+      used: true,
+      usedAt: firebase.firestore.FieldValue.serverTimestamp()
     });
 
+    // Permanently unlock access on this student's device
     isUnlocked = true;
     localStorage.setItem("aastu_access_unlocked", "true");
     applyUnlockedUI();
 
     closeModal("paymentModal");
     renderCourses();
-    alert("Payment transaction reference submitted successfully! All freshman exam papers are now unlocked.");
+    alert("Success! Your 1-time Access PIN has been verified and redeemed. All exam papers are unlocked.");
+
   } catch (error) {
-    console.error("Firebase Error:", error);
-    alert("Submission error: " + error.message);
+    console.error("Verification Error:", error);
+    alert("Error verifying PIN: " + error.message);
   } finally {
     submitBtn.disabled = false;
-    submitBtn.innerText = "Submit Payment Verification";
+    submitBtn.innerText = "Verify PIN & Unlock";
   }
 }
 
