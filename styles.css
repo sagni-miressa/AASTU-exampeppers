@@ -201,7 +201,7 @@ body {
 
 .course-card h4 { color: var(--primary); margin-bottom: 0.3rem; }
 
-/* Year Accordion Styling */
+/* Academic Year Groups */
 .year-group {
   margin-top: 10px;
   border: 1px solid var(--border-color);
@@ -213,7 +213,7 @@ body {
   background: #f1f5f9;
   padding: 8px 12px;
   font-weight: bold;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: var(--primary-light);
   cursor: pointer;
   display: flex;
@@ -231,7 +231,7 @@ body {
   background: #ffffff;
 }
 
-.year-papers.hidden { display: none; }
+.year-papers.hidden { display: none !important; }
 
 .paper-btn {
   padding: 8px;
@@ -303,48 +303,45 @@ body {
   cursor: pointer;
 }
 
-/* Floating AI Assistant FAB & Popup Window */
+/* Floating AI Assistant FAB Button & Popup Box Reset */
 .ai-floating-container {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  z-index: 9999;
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  z-index: 99999 !important;
 }
 
-.ai-fab {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--primary);
-  color: white;
-  border: none;
-  font-size: 1.8rem;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s;
+.ai-fab-btn {
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 50% !important;
+  background: var(--primary) !important;
+  color: white !important;
+  border: 2px solid white !important;
+  font-size: 1.8rem !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
-.ai-fab:hover { transform: scale(1.1); }
-
-.ai-popup {
-  position: absolute;
-  bottom: 70px;
-  right: 0;
-  width: 320px;
-  height: 400px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-  border: 1px solid var(--border-color);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+.ai-popup-window {
+  position: absolute !important;
+  bottom: 65px !important;
+  right: 0 !important;
+  width: 320px !important;
+  height: 380px !important;
+  background: white !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25) !important;
+  border: 1px solid var(--border-color) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
 }
 
-.ai-popup.hidden { display: none; }
+.ai-popup-window.hidden { display: none !important; }
 
 .ai-popup-header {
   background: var(--primary);
