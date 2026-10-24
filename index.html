@@ -3,189 +3,147 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AASTU EXAM PAPERS</title>
-  <link rel="stylesheet" href="./styles.css?v=3.0" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-
-  <!-- Firebase Web SDKs -->
+  <title>AASTU Exam Papers - Freshman Portal</title>
+  <link rel="stylesheet" href="./styles.css?v=5.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
 </head>
 <body>
 
-  <!-- Top Navigation Header -->
+  <!-- Navigation Bar -->
   <header class="navbar">
     <div class="logo-container">
       <span class="logo-badge">AASTU</span>
-      <h1>EXAM PAPERS</h1>
+      <span class="logo-title">EXAM PAPERS</span>
     </div>
-
-    <nav class="nav-links">
-      <button class="nav-bubble active" onclick="showPage('home', event)">🏠 Home</button>
-      <button class="nav-bubble" onclick="showPage('about', event)">ℹ️ About</button>
-      <button class="nav-bubble" onclick="showPage('contact', event)">📞 Contact</button>
-    </nav>
-
-    <div class="user-status">
-      <span id="accessBadge" class="status-badge locked">🔒 LOCKED</span>
-      <button id="unlockBtn" class="btn-primary">Unlock (100 ETB)</button>
+    <div class="nav-links">
+      <button class="nav-bubble active" onclick="showPage('home', event)">Home</button>
+      <button class="nav-bubble" onclick="showPage('about', event)">About</button>
+      <button class="nav-bubble" onclick="showPage('contact', event)">Contact</button>
+      <span id="accessBadge" class="status-badge locked">LOCKED</span>
     </div>
   </header>
 
-  <!-- HOME PAGE -->
-  <div id="homePage" class="page-section">
-    <section class="hero">
-      <h2>Freshman Exam Preparation Portal</h2>
-      <p>Access verified midterms, finals, and quizzes across all official AASTU courses.</p>
-      
+  <!-- Main Container -->
+  <main class="container">
+    <!-- Home Page Section -->
+    <section id="homePage" class="page-section">
+      <div class="hero-banner">
+        <h2>Freshman Exam Preparation Portal</h2>
+        <p>Access verified midterms, finals, and practice keys across official AASTU courses.</p>
+        <button id="unlockBtn" class="btn-unlock-hero">Unlock All Papers (100 ETB)</button>
+      </div>
+
+      <!-- Controls Bar -->
       <div class="controls-bar">
-        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search course name or code (e.g., ENG101, Math)..." />
-        <div class="semester-tabs">
-          <button id="sem1Btn" class="tab-btn active" onclick="switchSemester(1)">Semester 1</button>
-          <button id="sem2Btn" class="tab-btn" onclick="switchSemester(2)">Semester 2</button>
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Search course name or code (e.g. MATH101)..." />
         </div>
+        <div class="sem-tabs">
+          <button id="sem1Btn" class="sem-btn active" onclick="switchSemester(1)">Semester 1</button>
+          <button id="sem2Btn" class="sem-btn" onclick="switchSemester(2)">Semester 2</button>
+        </div>
+      </div>
+
+      <!-- Course Cards Grid -->
+      <div id="courseGrid" class="course-grid"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="aboutPage" class="page-section hidden">
+      <div class="info-card">
+        <h3>About AASTU Exam Peppers</h3>
+        <p>A centralized academic repository tailored for Addis Ababa Science and Technology University freshman students. Designed to streamline study prep with authentic past examination papers.</p>
       </div>
     </section>
 
-    <main class="container">
-      <div id="courseGrid" class="course-grid"></div>
-    </main>
-  </div>
-
-  <!-- ABOUT PAGE -->
-  <div id="aboutPage" class="page-section hidden">
-    <div class="info-card">
-      <h2>About AASTU EXAM PAPERS</h2>
-      <p>AASTU EXAM PAPERS is an exam repository created for Addis Ababa Science and Technology University (AASTU) freshman students.</p>
-      
-      <h3>Our Purpose</h3>
-      <p>To help first-year students study effectively by providing organized access to past midterms, final exam questions, and quiz solutions.</p>
-    </div>
-  </div>
-
-  <!-- CONTACT PAGE -->
-  <div id="contactPage" class="page-section hidden">
-    <div class="info-card">
-      <h2>Contact Us</h2>
-      <p>Reach out for payment verification, support, or paper contributions:</p>
-
-      <div class="bubble-contact-group">
-        <a href="https://t.me/samirgob" target="_blank" class="contact-bubble telegram">
-          <span class="icon-emoji">✈️</span>
-          <div>
-            <strong>Telegram Direct Chat</strong>
-            <p>@samirgob</p>
-          </div>
-        </a>
-
-        <a href="tel:0944899465" class="contact-bubble phone">
-          <span class="icon-emoji">📞</span>
-          <div>
-            <strong>Phone Call / Telebirr</strong>
-            <p>0944899465</p>
-          </div>
-        </a>
-
-        <div class="contact-bubble bank">
-          <span class="icon-emoji">💳</span>
-          <div>
-            <strong>CBE Account</strong>
-            <p>1000654224657 (Sagni Miressa)</p>
-          </div>
-        </div>
+    <!-- Contact Section -->
+    <section id="contactPage" class="page-section hidden">
+      <div class="info-card">
+        <h3>Support & Inquiries</h3>
+        <p>For instant access PINs or technical assistance, reach out directly:</p>
+        <ul>
+          <li><strong>Telegram Support:</strong> @samirgob</li>
+          <li><strong>Phone:</strong> +251 94 489 9465</li>
+        </ul>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
 
   <!-- Payment Modal -->
   <div id="paymentModal" class="modal hidden">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal('paymentModal')">&times;</span>
-      <h3>Unlock Full Access (100 ETB)</h3>
-      <p class="modal-sub">Transfer 100 ETB and attach receipt screenshot or reference code:</p>
-
+      <h3>Unlock Academic Repository</h3>
+      <p style="font-size:0.9rem; color:#64748b; margin-top:4px;">Pay 100 ETB once for permanent access on this device.</p>
+      
       <div class="payment-box">
-        <div class="pay-item">
-          <h4>Commercial Bank of Ethiopia (CBE)</h4>
-          <p>Account: <strong class="highlight">1000654224657</strong></p>
-          <p>Name: <strong>Sagni Miressa</strong></p>
-        </div>
-
-        <div class="pay-item">
-          <h4>Telebirr Transfer</h4>
-          <p>Phone: <strong class="highlight">0944899465</strong></p>
-          <p>Name: <strong>Abebe Jabessa</strong></p>
-        </div>
+        <div class="pay-item"><strong>CBE Account:</strong> 1000654224657 (Sagni Miressa)</div>
+        <div class="pay-item"><strong>Telebirr:</strong> 0944899465 (Abebe Jabessa)</div>
       </div>
+
+      <p style="font-size:0.85rem; color:#475569;">Send transaction receipt screenshot to <strong>@samirgob</strong> on Telegram to receive your 1-time PIN.</p>
 
       <div class="form-group">
-        <label for="studentPhone"><strong>Your Phone Number:</strong></label>
-        <input type="text" id="studentPhone" placeholder="09xxxxxxxx" />
+        <input type="text" id="txnRef" placeholder="Enter your 6-digit Access PIN..." />
       </div>
-
-      <div class="form-group">
-        <label for="txnRef"><strong>Transaction Reference Code:</strong></label>
-        <input type="text" id="txnRef" placeholder="e.g. TXN12345678" />
-      </div>
-
-      <div class="form-group">
-        <label for="screenshotInput"><strong>Upload Payment Receipt Screenshot:</strong></label>
-        <input type="file" id="screenshotInput" accept="image/*" onchange="previewScreenshot(event)" />
-        <div id="previewContainer" class="preview-box hidden">
-          <img id="screenshotPreview" src="" alt="Payment Receipt Preview" />
-        </div>
-      </div>
-
-      <button id="submitPayBtn" onclick="processPayment()" class="btn-success">Submit Payment Verification</button>
+      <button id="submitPayBtn" onclick="processPayment()" class="btn-primary">Verify PIN & Unlock</button>
     </div>
   </div>
 
-  <!-- Viewer Modal -->
+  <!-- PDF Viewer Modal -->
   <div id="viewerModal" class="modal hidden">
-    <div class="modal-content large">
+    <div class="modal-content viewer-modal-content">
       <span class="close-btn" onclick="closeModal('viewerModal')">&times;</span>
       <h3 id="viewerTitle">Exam Viewer</h3>
-      <div id="viewerBody"></div>
+      <div id="viewerBody" style="margin-top:15px;"></div>
     </div>
   </div>
 
-  <!-- Floating AI Widget -->
-  <div class="ai-floating-container">
-    <button class="ai-fab-btn" onclick="toggleAiChat()" title="Ask AI Assistant">
-      🤖
+  <!-- FLOATING RIGHT-SIDE ASSISTANT WIDGET -->
+  <div class="assistant-widget">
+    <!-- Trigger Floating Bubble (Bottom Right) -->
+    <button class="assistant-trigger" onclick="toggleAssistant()" aria-label="Open Support Chat">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+      <span>Support</span>
     </button>
 
-    <div id="aiChatBox" class="ai-popup-window hidden">
-      <div class="ai-popup-header">
-        <span>🤖 AASTU AI Helper</span>
-        <span class="close-ai" onclick="toggleAiChat()">&times;</span>
+    <!-- Floating Chat Window (Hidden by Default) -->
+    <div id="assistantWindow" class="assistant-window hidden">
+      <div class="assistant-header">
+        <div class="assistant-title">
+          <span class="online-indicator"></span>
+          <span>Portal Support</span>
+        </div>
+        <button class="assistant-close" onclick="toggleAssistant()">&times;</button>
       </div>
 
-      <div id="aiMessages" class="ai-messages">
-        <div class="ai-msg bot">
-          👋 Hi! Need help navigating exams, paying 100 ETB, or contacting owner <strong>Sagni Miressa</strong>?
+      <div id="assistantMessages" class="assistant-messages">
+        <div class="chat-bubble bot">
+          Hello! Need assistance with access PINs, payment details, or finding specific exams?
         </div>
       </div>
 
-      <div class="ai-quick-options">
-        <button onclick="sendAiPrompt('How do I buy access?')">💳 Buy Access</button>
-        <button onclick="sendAiPrompt('Who is the owner?')">👤 Owner Contact</button>
-        <button onclick="sendAiPrompt('How to upload receipt?')">📄 Upload Receipt</button>
+      <div class="assistant-quick-tags">
+        <button onclick="sendQuickPrompt('How to buy access?')">Buy Access</button>
+        <button onclick="sendQuickPrompt('Contact Owner')">Contact</button>
       </div>
 
-      <div class="ai-input-row">
-        <input type="text" id="aiInput" placeholder="Ask AI..." onkeypress="handleAiKeyPress(event)" />
-        <button onclick="sendAiMessage()">Send</button>
+      <div class="assistant-input-bar">
+        <input type="text" id="assistantInput" placeholder="Type a message..." onkeypress="handleAssistantKeyPress(event)" />
+        <button onclick="sendAssistantMessage()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <p>© Sagni Miressa</p>
-  </footer>
-
-  <script src="./app.js?v=3.0"></script>
+  <script src="./app.js?v=5.0"></script>
 </body>
 </html>

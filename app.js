@@ -213,11 +213,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- ANTI-CAPTURE & ANTI-COPY SECURITY LISTENERS ---
-  // Disable Right-Click Context Menu
+  // Anti-Capture Security Restrictions
   document.addEventListener("contextmenu", (e) => e.preventDefault());
 
-  // Block Keyboard Shortcuts (Print, Save, DevTools inspect)
   document.addEventListener("keydown", (e) => {
     if (
       (e.ctrlKey && (e.key === "p" || e.key === "s" || e.key === "u")) ||
@@ -234,7 +232,7 @@ function applyUnlockedUI() {
   const badge = document.getElementById("accessBadge");
   if (badge) {
     badge.className = "status-badge unlocked";
-    badge.innerText = "✅ UNLOCKED";
+    badge.innerText = "UNLOCKED";
   }
   const unlockBtn = document.getElementById("unlockBtn");
   if (unlockBtn) {
@@ -291,15 +289,15 @@ function renderCourses() {
 
       let paperBtnsHTML = papers.map(p => `
         <button class="paper-btn" onclick="openPaper('${course.name}', '${p.title}', '${p.file}')">
-          <span>📄 ${p.title}</span>
-          <span>${isUnlocked ? '👀 View PDF' : '🔒 Locked'}</span>
+          <span>${p.title}</span>
+          <span style="font-weight: 600; font-size: 0.8rem; color: ${isUnlocked ? 'var(--primary)' : 'var(--text-muted)'};">${isUnlocked ? 'View PDF' : 'Locked'}</span>
         </button>
       `).join("");
 
       yearsHTML += `
         <div class="year-group">
           <div class="year-header" onclick="toggleYearGroup('${yearContainerId}')">
-            <span>📅 ${yr} Academic Year</span>
+            <span>${yr} Academic Year</span>
             <span>▼</span>
           </div>
           <div id="${yearContainerId}" class="year-papers hidden">
@@ -311,7 +309,7 @@ function renderCourses() {
 
     card.innerHTML = `
       <h4>${course.name}</h4>
-      <p style="color:#777; font-size:0.85rem; margin-bottom:8px;">Code: ${course.code}</p>
+      <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px;">Course Code: ${course.code}</p>
       ${yearsHTML}
     `;
 
@@ -390,7 +388,6 @@ function openPaper(course, paperTitle, filePath) {
   
   const body = document.getElementById("viewerBody");
   
-  // Embed PDF inside container with watermark overlay & hidden browser toolbars
   body.innerHTML = `
     <div style="position: relative; width: 100%; height: 500px; overflow: hidden; border-radius: 8px;">
       <div class="pdf-watermark-overlay">
@@ -410,48 +407,51 @@ function closeModal(modalId) {
   document.getElementById(modalId).classList.add("hidden");
 }
 
-/* Floating AI Assistant Widget */
-function toggleAiChat() {
-  document.getElementById("aiChatBox").classList.toggle("hidden");
+/* FLOATING ASSISTANT DRAWER LOGIC */
+function toggleAssistant() {
+  const windowEl = document.getElementById("assistantWindow");
+  if (windowEl) {
+    windowEl.classList.toggle("hidden");
+  }
 }
 
-function handleAiKeyPress(e) {
-  if (e.key === "Enter") sendAiMessage();
+function handleAssistantKeyPress(e) {
+  if (e.key === "Enter") sendAssistantMessage();
 }
 
-function sendAiPrompt(promptText) {
-  document.getElementById("aiInput").value = promptText;
-  sendAiMessage();
+function sendQuickPrompt(text) {
+  document.getElementById("assistantInput").value = text;
+  sendAssistantMessage();
 }
 
-function sendAiMessage() {
-  const input = document.getElementById("aiInput");
+function sendAssistantMessage() {
+  const input = document.getElementById("assistantInput");
   const text = input.value.trim();
   if (!text) return;
 
-  appendAiMsg(text, "user");
+  appendChatMsg(text, "user");
   input.value = "";
 
   setTimeout(() => {
-    let reply = "I am here to help you navigate the portal! Ask me about buying access, submitting payment PINs, or contacting Sagni Miressa.";
-    const query = text.toLowerCase();
+    let reply = "I am here to assist with portal navigation. Ask about PIN generation, payments, or owner contacts.";
+    const lower = text.toLowerCase();
 
-    if (query.includes("buy") || query.includes("payment") || query.includes("unlock")) {
-      reply = "To buy access:\n1. Click 'Unlock (100 ETB)'.\n2. Transfer 100 ETB via CBE (1000654224657 - Sagni Miressa) or Telebirr (0944899465 - Abebe Jabessa).\n3. Send receipt screenshot to @samirgob on Telegram to get your 1-time Access PIN!";
-    } else if (query.includes("owner") || query.includes("sagni") || query.includes("contact")) {
-      reply = "The portal owner is Sagni Miressa. Contact via Telegram @samirgob or call 0944899465.";
+    if (lower.includes("buy") || lower.includes("pay") || lower.includes("access")) {
+      reply = "To acquire access:\n1. Click 'Unlock All Papers'.\n2. Transfer 100 ETB to CBE (1000654224657 - Sagni Miressa) or Telebirr (0944899465).\n3. Send receipt screenshot to @samirgob on Telegram to obtain your 1-time PIN.";
+    } else if (lower.includes("owner") || lower.includes("contact") || lower.includes("sagni")) {
+      reply = "Portal administrator: Sagni Miressa. Contact via Telegram @samirgob or phone 0944899465.";
     }
 
-    appendAiMsg(reply, "bot");
-  }, 400);
+    appendChatMsg(reply, "bot");
+  }, 350);
 }
 
-function appendAiMsg(text, sender) {
-  const container = document.getElementById("aiMessages");
+function appendChatMsg(text, sender) {
+  const container = document.getElementById("assistantMessages");
   if (!container) return;
-  const msgDiv = document.createElement("div");
-  msgDiv.className = `ai-msg ${sender}`;
-  msgDiv.innerText = text;
-  container.appendChild(msgDiv);
+  const msg = document.createElement("div");
+  msg.className = `chat-bubble ${sender}`;
+  msg.innerText = text;
+  container.appendChild(msg);
   container.scrollTop = container.scrollHeight;
 }
