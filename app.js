@@ -1,17 +1,3 @@
-// Firebase Configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAz_RU2rTvyr_fe3DmfwBUpVj2zxoyx7a4",
-  authDomain: "aastu-exampeppers.firebaseapp.com",
-  projectId: "aastu-exampeppers",
-  storageBucket: "aastu-exampeppers.firebasestorage.app",
-  messagingSenderId: "1062402927230",
-  appId: "1:1062402927230:web:9c1a539b5b4e3e3b3922f3"
-};
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
 let isUnlocked = localStorage.getItem("aastu_access_unlocked") === "true";
 let currentSemester = 1;
 let searchQuery = "";
@@ -259,8 +245,11 @@ function showPage(pageName, event) {
 
 function switchSemester(sem) {
   currentSemester = sem;
+  
+  // Toggle green active state on clicked button
   document.getElementById("sem1Btn").classList.toggle("active", sem === 1);
   document.getElementById("sem2Btn").classList.toggle("active", sem === 2);
+  
   renderCourses();
 }
 
@@ -321,62 +310,6 @@ function toggleYearGroup(id) {
   document.getElementById(id).classList.toggle("hidden");
 }
 
-async function processPayment() {
-  const enteredPin = document.getElementById("txnRef").value.trim();
-  const submitBtn = document.getElementById("submitPayBtn");
-
-  if (!enteredPin) {
-    alert("Please enter the Access PIN provided by Sagni Miressa on Telegram.");
-    return;
-  }
-
-  submitBtn.disabled = true;
-  submitBtn.innerText = "Verifying PIN...";
-
-  try {
-    const pinQuery = await db.collection("access_pins")
-      .where("pin", "==", enteredPin)
-      .get();
-
-    if (pinQuery.empty) {
-      alert("Invalid Access PIN! Please contact @samirgob on Telegram to receive your valid PIN.");
-      submitBtn.disabled = false;
-      submitBtn.innerText = "Verify PIN & Unlock";
-      return;
-    }
-
-    const pinDoc = pinQuery.docs[0];
-    const pinData = pinDoc.data();
-
-    if (pinData.used === true) {
-      alert("This Access PIN has already been used and is now expired!");
-      submitBtn.disabled = false;
-      submitBtn.innerText = "Verify PIN & Unlock";
-      return;
-    }
-
-    await db.collection("access_pins").doc(pinDoc.id).update({
-      used: true,
-      usedAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
-
-    isUnlocked = true;
-    localStorage.setItem("aastu_access_unlocked", "true");
-    applyUnlockedUI();
-
-    closeModal("paymentModal");
-    renderCourses();
-    alert("Success! Your 1-time Access PIN has been verified. All freshman exam papers are unlocked.");
-
-  } catch (error) {
-    console.error("Verification Error:", error);
-    alert("Error verifying PIN: " + error.message);
-  } finally {
-    submitBtn.disabled = false;
-    submitBtn.innerText = "Verify PIN & Unlock";
-  }
-}
-
 function openPaper(course, paperTitle, filePath) {
   if (!isUnlocked) {
     document.getElementById("paymentModal").classList.remove("hidden");
@@ -407,7 +340,7 @@ function closeModal(modalId) {
   document.getElementById(modalId).classList.add("hidden");
 }
 
-/* FLOATING ASSISTANT DRAWER LOGIC */
+/* Floating Assistant Logic */
 function toggleAssistant() {
   const windowEl = document.getElementById("assistantWindow");
   if (windowEl) {
@@ -433,11 +366,11 @@ function sendAssistantMessage() {
   input.value = "";
 
   setTimeout(() => {
-    let reply = "I am here to assist with portal navigation. Ask about PIN generation, payments, or owner contacts.";
+    let reply = "I am here to assist with portal navigation. Ask about payments or owner contacts.";
     const lower = text.toLowerCase();
 
     if (lower.includes("buy") || lower.includes("pay") || lower.includes("access")) {
-      reply = "To acquire access:\n1. Click 'Unlock All Papers'.\n2. Transfer 100 ETB to CBE (1000654224657 - Sagni Miressa) or Telebirr (0944899465).\n3. Send receipt screenshot to @samirgob on Telegram to obtain your 1-time PIN.";
+      reply = "To acquire access:\n1. Transfer 100 ETB to CBE (1000654224657 - Sagni Miressa) or Telebirr (0944899465).\n2. Send your payment screenshot to @samirgob on Telegram!";
     } else if (lower.includes("owner") || lower.includes("contact") || lower.includes("sagni")) {
       reply = "Portal administrator: Sagni Miressa. Contact via Telegram @samirgob or phone 0944899465.";
     }

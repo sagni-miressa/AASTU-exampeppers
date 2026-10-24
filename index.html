@@ -4,13 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AASTU Exam Papers - Freshman Portal</title>
-  <link rel="stylesheet" href="./styles.css?v=5.0" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <link rel="stylesheet" href="./styles.css?v=6.0" />
 </head>
 <body>
 
@@ -38,7 +32,7 @@
         <button id="unlockBtn" class="btn-unlock-hero">Unlock All Papers (100 ETB)</button>
       </div>
 
-      <!-- Controls Bar -->
+      <!-- Search & Green Semester Tabs -->
       <div class="controls-bar">
         <div class="search-box">
           <input type="text" id="searchInput" placeholder="Search course name or code (e.g. MATH101)..." />
@@ -61,37 +55,58 @@
       </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact Section with Direct Clickable Icons -->
     <section id="contactPage" class="page-section hidden">
-      <div class="info-card">
-        <h3>Support & Inquiries</h3>
-        <p>For instant access PINs or technical assistance, reach out directly:</p>
-        <ul>
-          <li><strong>Telegram Support:</strong> @samirgob</li>
-          <li><strong>Phone:</strong> +251 94 489 9465</li>
-        </ul>
+      <h3>Support & Inquiries</h3>
+      <p style="color:#64748b; margin-top:4px;">Click any channel below to connect directly with the owner:</p>
+
+      <div class="contact-cards-container">
+        <!-- Direct Telegram Link -->
+        <a href="https://t.me/samirgob" target="_blank" class="contact-card-btn">
+          <div class="contact-icon telegram">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+          </div>
+          <div class="contact-info-text">
+            <strong>Telegram Support</strong>
+            <span>@samirgob</span>
+          </div>
+        </a>
+
+        <!-- Direct Phone Link -->
+        <a href="tel:+251944899465" class="contact-card-btn">
+          <div class="contact-icon phone">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          </div>
+          <div class="contact-info-text">
+            <strong>Phone Call / Direct</strong>
+            <span>+251 94 489 9465</span>
+          </div>
+        </a>
       </div>
     </section>
   </main>
 
-  <!-- Payment Modal -->
+  <!-- Payment Modal (SCREENSHOT ATTACHMENT ONLY) -->
   <div id="paymentModal" class="modal hidden">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal('paymentModal')">&times;</span>
       <h3>Unlock Academic Repository</h3>
-      <p style="font-size:0.9rem; color:#64748b; margin-top:4px;">Pay 100 ETB once for permanent access on this device.</p>
+      <p style="font-size:0.9rem; color:#64748b; margin-top:4px;">Pay 100 ETB once to unlock full access across all freshman subjects.</p>
       
       <div class="payment-box">
-        <div class="pay-item"><strong>CBE Account:</strong> 1000654224657 (Sagni Miressa)</div>
-        <div class="pay-item"><strong>Telebirr:</strong> 0944899465 (Abebe Jabessa)</div>
+        <div style="margin-bottom:8px;"><strong>CBE Account:</strong> 1000654224657 (Sagni Miressa)</div>
+        <div><strong>Telebirr:</strong> 0944899465 (Abebe Jabessa)</div>
       </div>
 
-      <p style="font-size:0.85rem; color:#475569;">Send transaction receipt screenshot to <strong>@samirgob</strong> on Telegram to receive your 1-time PIN.</p>
+      <p style="font-size:0.88rem; color:#475569; line-height:1.4;">
+        Transfer 100 ETB and send your payment screenshot directly to <strong>@samirgob</strong> on Telegram. You will receive instant access!
+      </p>
 
-      <div class="form-group">
-        <input type="text" id="txnRef" placeholder="Enter your 6-digit Access PIN..." />
-      </div>
-      <button id="submitPayBtn" onclick="processPayment()" class="btn-primary">Verify PIN & Unlock</button>
+      <!-- Screenshot Attachment Telegram Button -->
+      <a href="https://t.me/samirgob" target="_blank" class="btn-telegram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+        Send Payment Screenshot on Telegram
+      </a>
     </div>
   </div>
 
@@ -104,17 +119,13 @@
     </div>
   </div>
 
-  <!-- FLOATING RIGHT-SIDE ASSISTANT WIDGET -->
+  <!-- FLOATING RIGHT ASSISTANT DRAWER -->
   <div class="assistant-widget">
-    <!-- Trigger Floating Bubble (Bottom Right) -->
     <button class="assistant-trigger" onclick="toggleAssistant()" aria-label="Open Support Chat">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-      </svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
       <span>Support</span>
     </button>
 
-    <!-- Floating Chat Window (Hidden by Default) -->
     <div id="assistantWindow" class="assistant-window hidden">
       <div class="assistant-header">
         <div class="assistant-title">
@@ -126,7 +137,7 @@
 
       <div id="assistantMessages" class="assistant-messages">
         <div class="chat-bubble bot">
-          Hello! Need assistance with access PINs, payment details, or finding specific exams?
+          Hello! Need assistance with access, payment receipt verification, or contacting owner Sagni Miressa?
         </div>
       </div>
 
@@ -144,6 +155,6 @@
     </div>
   </div>
 
-  <script src="./app.js?v=5.0"></script>
+  <script src="./app.js?v=6.0"></script>
 </body>
 </html>
