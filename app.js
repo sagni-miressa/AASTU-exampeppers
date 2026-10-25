@@ -370,7 +370,7 @@ function sendAssistantMessage() {
     const lower = text.toLowerCase();
 
     if (lower.includes("buy") || lower.includes("pay") || lower.includes("access")) {
-      reply = "To acquire access:\n1. Transfer 100 ETB to CBE (1000654224657 - Sagni Miressa) or Telebirr (0944899465).\n2. Send your payment screenshot to @samirgob on Telegram!";
+      reply = "To acquire access:\n1. Transfer 100 ETB to CBE (1000654224057 - Sagni Miressa) or Telebirr (0944899465).\n2. Send your payment screenshot to @samirgob on Telegram!";
     } else if (lower.includes("owner") || lower.includes("contact") || lower.includes("sagni")) {
       reply = "Portal administrator: Sagni Miressa. Contact via Telegram @samirgob or phone 0944899465.";
     }
