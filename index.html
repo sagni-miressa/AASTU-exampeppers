@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>AASTU Portal - Fresh Exams & Campus Market</title>
-  <link rel="stylesheet" href="./styles.css?v=9.0" />
+  <title>AASTU HUB - Fresh Exams & Campus Market</title>
+  <link rel="stylesheet" href="./styles.css?v=10.0" />
 </head>
-<body>
+<body class="welcome-mode">
 
-  <!-- Navigation Bar -->
-  <header class="navbar">
+  <!-- Navigation Bar (Hidden on Welcome Screen, Appears After Selection) -->
+  <header id="mainNavbar" class="navbar hidden">
     <div class="logo-container" onclick="showPage('welcome')" style="cursor: pointer;">
       <span class="logo-badge">AASTU</span>
-      <span class="logo-title">HUB PORTAL</span>
+      <span class="logo-title">HUB</span>
     </div>
     <div class="nav-links">
-      <button id="navWelcomeBtn" class="nav-bubble active" onclick="showPage('welcome', event)">Start</button>
+      <button id="navWelcomeBtn" class="nav-bubble" onclick="showPage('welcome', event)">Home</button>
       <button id="navExamsBtn" class="nav-bubble" onclick="showPage('home', event)">Fresh Exams</button>
       <button id="navMarketBtn" class="nav-bubble" onclick="showPage('market', event)">AASTU Market</button>
       <button class="nav-bubble" onclick="showPage('about', event)">About</button>
@@ -24,43 +24,50 @@
     </div>
   </header>
 
-  <!-- Main Container -->
-  <main class="container">
+  <!-- 0. DARK INTERACTIVE WELCOME SCREEN (ONLY TITLE + TWO OPTIONS) -->
+  <section id="welcomePage" class="welcome-screen">
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
 
-    <!-- 0. WELCOME LANDING PAGE (TWO OPTIONS) -->
-    <section id="welcomePage" class="page-section">
-      <div class="welcome-hero">
-        <span class="welcome-tag">Addis Ababa Science & Technology University</span>
-        <h1>Welcome to AASTU Student Hub</h1>
-        <p>Choose where you would like to go today—prepare with verified freshman exam papers or order quality phone & tech accessories on campus.</p>
+    <div class="welcome-center">
+      <div class="welcome-brand">
+        <span class="brand-pill">AASTU</span>
+        <h1 class="brand-main-title">AASTU HUB</h1>
       </div>
 
       <div class="portal-choice-grid">
         <!-- Option 1: Fresh Exams -->
         <div class="choice-card exams-choice" onclick="enterPortalSection('home')">
+          <div class="choice-glow"></div>
           <div class="choice-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
           </div>
-          <div class="choice-body">
-            <h2>Fresh Exams</h2>
-            <p>Access verified Semester 1 & 2 midterms, final exam galleries, and past papers across all freshman courses.</p>
-          </div>
-          <span class="choice-cta">Open Exam Repository &rarr;</span>
+          <h2>Fresh Exams</h2>
+          <span class="choice-arrow">Enter &rarr;</span>
         </div>
 
         <!-- Option 2: AASTU Market -->
         <div class="choice-card market-choice" onclick="enterPortalSection('market')">
+          <div class="choice-glow"></div>
           <div class="choice-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
           </div>
-          <div class="choice-body">
-            <h2>AASTU Market</h2>
-            <p>Order Earpods, Earphones, Fast Chargers, Charger Cables, and Adapters with fast campus delivery.</p>
-          </div>
-          <span class="choice-cta">Browse Accessories &rarr;</span>
+          <h2>AASTU Market</h2>
+          <span class="choice-arrow">Enter &rarr;</span>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
+
+  <!-- Main Container (Shown After Selecting an Option) -->
+  <main id="mainContainer" class="container hidden">
 
     <!-- 1. FRESH EXAMS PAGE SECTION -->
     <section id="homePage" class="page-section hidden">
@@ -98,7 +105,7 @@
     <!-- 3. ABOUT SECTION -->
     <section id="aboutPage" class="page-section hidden">
       <div class="info-card">
-        <h3>About AASTU Hub Portal</h3>
+        <h3>About AASTU Hub</h3>
         <p>A centralized student platform tailored for Addis Ababa Science and Technology University students—combining a freshman exam preparation repository with an on-campus mobile accessories store.</p>
       </div>
     </section>
@@ -206,8 +213,8 @@
     </div>
   </div>
 
-  <!-- FLOATING RIGHT ASSISTANT DRAWER -->
-  <div class="assistant-widget">
+  <!-- FLOATING RIGHT ASSISTANT DRAWER (Hidden on Welcome Screen) -->
+  <div id="assistantWidget" class="assistant-widget hidden">
     <button class="assistant-trigger" onclick="toggleAssistant()" aria-label="Open Support Chat">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
       <span>Support</span>
@@ -243,6 +250,6 @@
     </div>
   </div>
 
-  <script src="./app.js?v=9.0"></script>
+  <script src="./app.js?v=10.0"></script>
 </body>
 </html>

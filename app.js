@@ -401,13 +401,31 @@ function enterPortalSection(pageName) {
 }
 
 function showPage(pageName, event) {
+  const welcomePage = document.getElementById("welcomePage");
+  const mainNavbar = document.getElementById("mainNavbar");
+  const mainContainer = document.getElementById("mainContainer");
+  const assistantWidget = document.getElementById("assistantWidget");
+
   document.querySelectorAll(".page-section").forEach(sec => sec.classList.add("hidden"));
   document.querySelectorAll(".nav-bubble").forEach(btn => btn.classList.remove("active"));
 
   if (pageName === "welcome") {
-    document.getElementById("welcomePage").classList.remove("hidden");
-    if (!event) document.getElementById("navWelcomeBtn").classList.add("active");
-  } else if (pageName === "home") {
+    document.body.classList.add("welcome-mode");
+    welcomePage.classList.remove("hidden");
+    mainNavbar.classList.add("hidden");
+    mainContainer.classList.add("hidden");
+    assistantWidget.classList.add("hidden");
+    return;
+  }
+
+  // Leaving welcome screen -> show portal navbar, container & support widget
+  document.body.classList.remove("welcome-mode");
+  welcomePage.classList.add("hidden");
+  mainNavbar.classList.remove("hidden");
+  mainContainer.classList.remove("hidden");
+  assistantWidget.classList.remove("hidden");
+
+  if (pageName === "home") {
     document.getElementById("homePage").classList.remove("hidden");
   } else if (pageName === "market") {
     document.getElementById("marketPage").classList.remove("hidden");
@@ -502,33 +520,45 @@ function renderCourses() {
         const encodedCourse = encodeURIComponent(course.name);
         const encodedList = encodeURIComponent(JSON.stringify(groupItems));
 
-        const galleryCardsHTML = groupItems.map((p, idx) => {
-          const isPdf = p.file.toLowerCase().endsWith(".pdf");
-          const pageLabel = p.title.replace(/^.*-\s*/, "");
-          return `
-            <div class="gallery-card" onclick="openGalleryViewer('${encodedCourse}', '${encodedList}', ${idx})">
-              <div class="gallery-thumb-wrap ${!isUnlocked ? 'locked-blur' : ''}">
-                ${
-                  isPdf
-                    ? `<span class="gallery-pdf-badge">PDF</span>`
-                    : `<img src="${p.file}" alt="${p.title}" loading="lazy" />`
-                }
-                ${!isUnlocked ? `<span class="gallery-lock-badge">Locked</span>` : ""}
-              </div>
-              <div class="gallery-caption">${pageLabel}</div>
-            </div>
-          `;
-        }).join("");
+        // Hide page count and gallery list until unlocked
+        const countLabel = isUnlocked
+          ? ` (${groupItems.length} ${groupItems.length === 1 ? "File" : "Pages"})`
+          : "";
+
+        const rightIndicator = isUnlocked
+          ? `<span>▼</span>`
+          : `<span class="locked-pill">Unlock to View</span>`;
+
+        const galleryCardsHTML = isUnlocked
+          ? groupItems.map((p, idx) => {
+              const isPdf = p.file.toLowerCase().endsWith(".pdf");
+              const pageLabel = p.title.replace(/^.*-\s*/, "");
+              return `
+                <div class="gallery-card" onclick="openGalleryViewer('${encodedCourse}', '${encodedList}', ${idx})">
+                  <div class="gallery-thumb-wrap">
+                    ${
+                      isPdf
+                        ? `<span class="gallery-pdf-badge">PDF</span>`
+                        : `<img src="${p.file}" alt="${p.title}" loading="lazy" />`
+                    }
+                  </div>
+                  <div class="gallery-caption">${pageLabel}</div>
+                </div>
+              `;
+            }).join("")
+          : "";
 
         return `
           <div class="exam-subgroup">
-            <div class="subgroup-header" onclick="toggleYearGroup('${subId}')">
-              <span>${groupName} (${groupItems.length} ${groupItems.length === 1 ? 'File' : 'Pages'})</span>
-              <span>▼</span>
+            <div class="subgroup-header" onclick="handleSubgroupClick('${subId}')">
+              <span>${groupName}${countLabel}</span>
+              ${rightIndicator}
             </div>
-            <div id="${subId}" class="gallery-grid hidden">
-              ${galleryCardsHTML}
-            </div>
+            ${
+              isUnlocked
+                ? `<div id="${subId}" class="gallery-grid hidden">${galleryCardsHTML}</div>`
+                : ""
+            }
           </div>
         `;
       }).join("");
@@ -554,6 +584,14 @@ function renderCourses() {
 
     grid.appendChild(card);
   });
+}
+
+function handleSubgroupClick(subId) {
+  if (!isUnlocked) {
+    document.getElementById("paymentModal").classList.remove("hidden");
+    return;
+  }
+  toggleYearGroup(subId);
 }
 
 function toggleYearGroup(id) {
