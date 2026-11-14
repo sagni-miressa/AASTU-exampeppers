@@ -2,6 +2,11 @@ let isUnlocked = localStorage.getItem("aastu_access_unlocked") === "true";
 let currentSemester = 1;
 let searchQuery = "";
 
+// Lightbox Gallery State
+let currentGalleryItems = [];
+let currentGalleryIndex = 0;
+let currentGalleryCourse = "";
+
 // Course Dataset
 const courses = {
   1: [
@@ -288,17 +293,61 @@ document.addEventListener("DOMContentLoaded", () => {
   // Anti-Capture Security Restrictions
   document.addEventListener("contextmenu", (e) => e.preventDefault());
 
-  document.addEventListener("keydown", (e) => {
-    if (
-      (e.ctrlKey && (e.key === "p" || e.key === "s" || e.key === "u")) ||
-      (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "C" || e.key === "J")) ||
-      e.key === "F12"
-    ) {
-      e.preventDefault();
-      alert("Copying, printing, and saving exam materials is strictly disabled.");
+  document.addEventListener("keyup", (e) => {
+    if (e.key === "PrintScreen") {
+      triggerBlackout(3000);
     }
   });
+
+  document.addEventListener("keydown", (e) => {
+    const isViewerOpen = !document.getElementById("viewerModal").classList.contains("hidden");
+    if (isViewerOpen) {
+      if (e.key === "ArrowRight") changeExamPage(1);
+      if (e.key === "ArrowLeft") changeExamPage(-1);
+      if (e.key === "Escape") closeExamViewer();
+    }
+
+    const isMacShot = e.metaKey && e.shiftKey && ["3", "4", "5", "s", "S"].includes(e.key);
+    const isWinSnip = (e.metaKey || e.ctrlKey) && e.shiftKey && (e.key === "s" || e.key === "S");
+    const isBlockedShortcut =
+      e.key === "PrintScreen" ||
+      isMacShot ||
+      isWinSnip ||
+      (e.ctrlKey && ["p", "P", "s", "S", "u", "U"].includes(e.key)) ||
+      (e.ctrlKey && e.shiftKey && ["I", "i", "C", "c", "J", "j"].includes(e.key)) ||
+      e.key === "F12";
+
+    if (isBlockedShortcut) {
+      e.preventDefault();
+      triggerBlackout(3000);
+    }
+  });
+
+  // Blackout when Snipping Tool or external capture window steals focus
+  window.addEventListener("blur", () => {
+    const shield = document.getElementById("securityBlackout");
+    if (shield) shield.classList.remove("hidden");
+  });
+
+  window.addEventListener("focus", () => {
+    const shield = document.getElementById("securityBlackout");
+    if (shield) shield.classList.add("hidden");
+  });
 });
+
+function triggerBlackout(durationMs = 2500) {
+  const shield = document.getElementById("securityBlackout");
+  if (!shield) return;
+  shield.classList.remove("hidden");
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText("").catch(() => {});
+  }
+  setTimeout(() => {
+    if (document.hasFocus()) {
+      shield.classList.add("hidden");
+    }
+  }, durationMs);
+}
 
 function applyUnlockedUI() {
   const badge = document.getElementById("accessBadge");
@@ -316,11 +365,11 @@ function showPage(pageName, event) {
   document.querySelectorAll(".page-section").forEach(sec => sec.classList.add("hidden"));
   document.querySelectorAll(".nav-bubble").forEach(btn => btn.classList.remove("active"));
 
-  if (pageName === 'home') {
+  if (pageName === "home") {
     document.getElementById("homePage").classList.remove("hidden");
-  } else if (pageName === 'about') {
+  } else if (pageName === "about") {
     document.getElementById("aboutPage").classList.remove("hidden");
-  } else if (pageName === 'contact') {
+  } else if (pageName === "contact") {
     document.getElementById("contactPage").classList.remove("hidden");
   }
 
@@ -331,11 +380,8 @@ function showPage(pageName, event) {
 
 function switchSemester(sem) {
   currentSemester = sem;
-  
-  // Toggle green active state on clicked button
   document.getElementById("sem1Btn").classList.toggle("active", sem === 1);
   document.getElementById("sem2Btn").classList.toggle("active", sem === 2);
-  
   renderCourses();
 }
 
@@ -344,7 +390,7 @@ function renderCourses() {
   if (!grid) return;
   grid.innerHTML = "";
 
-  const filtered = courses[currentSemester].filter(c => 
+  const filtered = courses[currentSemester].filter(c =>
     c.name.toLowerCase().includes(searchQuery) || c.code.toLowerCase().includes(searchQuery)
   );
 
@@ -362,12 +408,50 @@ function renderCourses() {
       const papers = course.years[yr];
       const yearContainerId = `yr-${courseIdx}-${yr}`;
 
-      let paperBtnsHTML = papers.map(p => `
-        <button class="paper-btn" onclick="openPaper('${course.name}', '${p.title}', '${p.file}')">
-          <span>${p.title}</span>
-          <span style="font-weight: 600; font-size: 0.8rem; color: ${isUnlocked ? 'var(--primary)' : 'var(--text-muted)'};">${isUnlocked ? 'View PDF' : 'Locked'}</span>
-        </button>
-      `).join("");
+      // Group papers into Midterm Exam vs Final Exam
+      const groups = {};
+      papers.forEach(p => {
+        const match = p.title.match(/(Midterm|Final)/i);
+        const groupName = match ? `${yr} ${match[1]} Exam` : `${yr} Exam Papers`;
+        if (!groups[groupName]) groups[groupName] = [];
+        groups[groupName].push(p);
+      });
+
+      const subgroupsHTML = Object.entries(groups).map(([groupName, groupItems], gIdx) => {
+        const subId = `${yearContainerId}-sub-${gIdx}`;
+        const encodedCourse = encodeURIComponent(course.name);
+        const encodedList = encodeURIComponent(JSON.stringify(groupItems));
+
+        const galleryCardsHTML = groupItems.map((p, idx) => {
+          const isPdf = p.file.toLowerCase().endsWith(".pdf");
+          const pageLabel = p.title.replace(/^.*-\s*/, "");
+          return `
+            <div class="gallery-card" onclick="openGalleryViewer('${encodedCourse}', '${encodedList}', ${idx})">
+              <div class="gallery-thumb-wrap ${!isUnlocked ? 'locked-blur' : ''}">
+                ${
+                  isPdf
+                    ? `<span class="gallery-pdf-badge">PDF</span>`
+                    : `<img src="${p.file}" alt="${p.title}" loading="lazy" />`
+                }
+                ${!isUnlocked ? `<span class="gallery-lock-badge">Locked</span>` : ""}
+              </div>
+              <div class="gallery-caption">${pageLabel}</div>
+            </div>
+          `;
+        }).join("");
+
+        return `
+          <div class="exam-subgroup">
+            <div class="subgroup-header" onclick="toggleYearGroup('${subId}')">
+              <span>${groupName} (${groupItems.length} ${groupItems.length === 1 ? 'File' : 'Pages'})</span>
+              <span>▼</span>
+            </div>
+            <div id="${subId}" class="gallery-grid hidden">
+              ${galleryCardsHTML}
+            </div>
+          </div>
+        `;
+      }).join("");
 
       yearsHTML += `
         <div class="year-group">
@@ -376,7 +460,7 @@ function renderCourses() {
             <span>▼</span>
           </div>
           <div id="${yearContainerId}" class="year-papers hidden">
-            ${paperBtnsHTML}
+            ${subgroupsHTML}
           </div>
         </div>
       `;
@@ -393,33 +477,64 @@ function renderCourses() {
 }
 
 function toggleYearGroup(id) {
-  document.getElementById(id).classList.toggle("hidden");
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle("hidden");
 }
 
-function openPaper(course, paperTitle, filePath) {
+function openGalleryViewer(encodedCourse, encodedList, startIndex) {
   if (!isUnlocked) {
     document.getElementById("paymentModal").classList.remove("hidden");
     return;
   }
 
-  const modal = document.getElementById("viewerModal");
-  document.getElementById("viewerTitle").innerText = `${course} - ${paperTitle}`;
-  
-  const body = document.getElementById("viewerBody");
-  
-  body.innerHTML = `
-    <div style="position: relative; width: 100%; height: 500px; overflow: hidden; border-radius: 8px;">
-      <div class="pdf-watermark-overlay">
-        <div class="pdf-watermark-text">
-          AASTU EXAM PEPPERS<br>
-          PROPRIETARY COPY - DO NOT DISTRIBUTE
-        </div>
-      </div>
-      <iframe src="${filePath}#toolbar=0&navpanes=0&scrollbar=0" width="100%" height="100%" style="border:none;"></iframe>
-    </div>
-  `;
+  currentGalleryCourse = decodeURIComponent(encodedCourse);
+  currentGalleryItems = JSON.parse(decodeURIComponent(encodedList));
+  currentGalleryIndex = startIndex;
 
+  const modal = document.getElementById("viewerModal");
   modal.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+  renderViewerPage();
+}
+
+function renderViewerPage() {
+  const item = currentGalleryItems[currentGalleryIndex];
+  if (!item) return;
+
+  document.getElementById("viewerTitle").innerText = `${currentGalleryCourse} - ${item.title}`;
+  document.getElementById("viewerCounter").innerText = `${currentGalleryIndex + 1} / ${currentGalleryItems.length}`;
+  document.getElementById("prevPageBtn").disabled = currentGalleryIndex === 0;
+  document.getElementById("nextPageBtn").disabled = currentGalleryIndex === currentGalleryItems.length - 1;
+
+  const body = document.getElementById("viewerBody");
+  const isPdf = item.file.toLowerCase().endsWith(".pdf");
+
+  const mediaHTML = isPdf
+    ? `<iframe src="${item.file}#toolbar=0&navpanes=0&scrollbar=0"></iframe>`
+    : `<img src="${item.file}" alt="${item.title}" draggable="false" />`;
+
+  body.innerHTML = `
+    <div class="pdf-watermark-overlay">
+      <div class="pdf-watermark-text">
+        AASTU EXAM PEPPERS<br>
+        PROPRIETARY COPY - DO NOT DISTRIBUTE
+      </div>
+    </div>
+    ${mediaHTML}
+  `;
+}
+
+function changeExamPage(delta) {
+  const nextIndex = currentGalleryIndex + delta;
+  if (nextIndex >= 0 && nextIndex < currentGalleryItems.length) {
+    currentGalleryIndex = nextIndex;
+    renderViewerPage();
+  }
+}
+
+function closeExamViewer() {
+  document.getElementById("viewerModal").classList.add("hidden");
+  document.body.style.overflow = "";
 }
 
 function closeModal(modalId) {

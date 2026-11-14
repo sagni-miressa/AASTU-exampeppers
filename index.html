@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Strict Mobile Viewport: Prevents Horizontal Overflow & Disables Zooming -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>AASTU Exam Papers - Freshman Portal</title>
-  <link rel="stylesheet" href="./styles.css?v=7.0" />
+  <link rel="stylesheet" href="./styles.css?v=8.0" />
 </head>
 <body>
 
@@ -36,7 +35,7 @@
       <!-- Search & Green Semester Tabs -->
       <div class="controls-bar">
         <div class="search-box">
-          <input type="text" id="searchInput" placeholder="Search course name or code (e.g. MATH101)..." />
+          <input type="text" id="searchInput" placeholder="Search course name or code (e.g. MATH100)..." />
         </div>
         <div class="sem-tabs">
           <button id="sem1Btn" class="sem-btn active" onclick="switchSemester(1)">Semester 1</button>
@@ -62,7 +61,6 @@
       <p style="color:#64748b; margin-top:4px;">Click any channel below to connect directly with the owner:</p>
 
       <div class="contact-cards-container">
-        <!-- Direct Telegram Link -->
         <a href="https://t.me/samirgob" target="_blank" class="contact-card-btn">
           <div class="contact-icon telegram">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
@@ -73,7 +71,6 @@
           </div>
         </a>
 
-        <!-- Direct Phone Link -->
         <a href="tel:+251944899465" class="contact-card-btn">
           <div class="contact-icon phone">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
@@ -110,12 +107,27 @@
     </div>
   </div>
 
-  <!-- PDF Viewer Modal -->
-  <div id="viewerModal" class="modal hidden">
-    <div class="modal-content viewer-modal-content">
-      <span class="close-btn" onclick="closeModal('viewerModal')">&times;</span>
-      <h3 id="viewerTitle">Exam Viewer</h3>
-      <div id="viewerBody" style="margin-top:15px;"></div>
+  <!-- FULL-WINDOW GALLERY LIGHTBOX VIEWER (ZERO SCROLLBARS + NEXT/PREV) -->
+  <div id="viewerModal" class="full-viewer-modal hidden">
+    <div class="viewer-topbar">
+      <div class="viewer-title-group">
+        <span id="viewerTitle" class="viewer-title">Exam Viewer</span>
+        <span id="viewerCounter" class="viewer-counter">1 / 1</span>
+      </div>
+      <div class="viewer-controls">
+        <button id="prevPageBtn" class="viewer-nav-btn" onclick="changeExamPage(-1)">&#8592; Prev</button>
+        <button id="nextPageBtn" class="viewer-nav-btn" onclick="changeExamPage(1)">Next &#8594;</button>
+        <button class="viewer-close-btn" onclick="closeExamViewer()">&#10005; Close</button>
+      </div>
+    </div>
+    <div id="viewerBody" class="viewer-stage"></div>
+  </div>
+
+  <!-- ANTI-SCREENSHOT BLACKOUT SHIELD -->
+  <div id="securityBlackout" class="security-blackout hidden">
+    <div class="blackout-box">
+      <h2>Protected Exam Content</h2>
+      <p>Screenshots and screen recording are disabled on AASTU Exam Peppers.</p>
     </div>
   </div>
 
@@ -155,6 +167,6 @@
     </div>
   </div>
 
-  <script src="./app.js?v=7.0"></script>
+  <script src="./app.js?v=8.0"></script>
 </body>
 </html>
