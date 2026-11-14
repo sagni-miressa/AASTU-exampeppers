@@ -19,7 +19,6 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* ELIMINATE HORIZONTAL SCROLLING & DISABLE MOBILE ZOOM */
 html, body {
   width: 100%;
   max-width: 100vw;
@@ -35,7 +34,6 @@ body {
   flex-direction: column;
 }
 
-/* Security Restrictions */
 iframe, .modal-content, .course-card, .viewer-stage, .gallery-card {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -54,6 +52,8 @@ iframe, .modal-content, .course-card, .viewer-stage, .gallery-card {
   top: 0;
   z-index: 100;
   width: 100%;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .logo-container {
@@ -87,10 +87,10 @@ iframe, .modal-content, .course-card, .viewer-stage, .gallery-card {
 .nav-bubble {
   background: #ffffff;
   border: 1px solid var(--border-color);
-  padding: 6px 12px;
+  padding: 6px 11px;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--text-muted);
 }
@@ -102,8 +102,8 @@ iframe, .modal-content, .course-card, .viewer-stage, .gallery-card {
 }
 
 .status-badge {
-  font-size: 0.75rem;
-  padding: 5px 10px;
+  font-size: 0.72rem;
+  padding: 5px 9px;
   border-radius: 20px;
   font-weight: 700;
 }
@@ -124,7 +124,7 @@ iframe, .modal-content, .course-card, .viewer-stage, .gallery-card {
 .container {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 16px 14px;
+  padding: 18px 14px;
   width: 100%;
   flex: 1;
 }
@@ -132,7 +132,232 @@ iframe, .modal-content, .course-card, .viewer-stage, .gallery-card {
 .page-section { display: block; width: 100%; }
 .hidden { display: none !important; }
 
-/* Hero Banner */
+/* =========================================
+   WELCOME LANDING PAGE (TWO-OPTION PORTAL)
+   ========================================= */
+.welcome-hero {
+  text-align: center;
+  padding: 28px 16px 22px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.welcome-tag {
+  display: inline-block;
+  background: #f0fdf4;
+  color: var(--primary);
+  border: 1px solid #bbf7d0;
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+
+.welcome-hero h1 {
+  font-size: clamp(1.45rem, 3.5vw, 2rem);
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.welcome-hero p {
+  font-size: 0.94rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.portal-choice-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  max-width: 820px;
+  margin: 12px auto 0;
+}
+
+@media (min-width: 640px) {
+  .portal-choice-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.choice-card {
+  background: #ffffff;
+  border: 2px solid var(--border-color);
+  border-radius: 16px;
+  padding: 24px 20px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.choice-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
+  box-shadow: 0 12px 24px rgba(15, 118, 110, 0.14);
+}
+
+.choice-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.exams-choice .choice-icon {
+  background: #f0fdf4;
+  color: #0f766e;
+}
+
+.market-choice .choice-icon {
+  background: #eff6ff;
+  color: #0284c7;
+}
+
+.choice-body h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.choice-body p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.choice-cta {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--primary);
+}
+
+.market-choice .choice-cta {
+  color: #0284c7;
+}
+
+/* =========================================
+   AASTU MARKET GRID & ORDER MODAL
+   ========================================= */
+.market-banner {
+  background: linear-gradient(135deg, #0284c7 0%, #0f766e 100%);
+}
+
+.market-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+@media (min-width: 600px) {
+  .market-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+}
+
+.market-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.market-card:hover {
+  transform: translateY(-3px);
+  border-color: #0284c7;
+  box-shadow: 0 8px 18px rgba(2, 132, 199, 0.12);
+}
+
+.market-card-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.market-item-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: #f0f9ff;
+  color: #0284c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.market-card h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.market-card p {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.market-order-btn {
+  width: 100%;
+  background: #0f766e;
+  color: #ffffff;
+  border: none;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.order-badge {
+  display: inline-block;
+  background: #e0f2fe;
+  color: #0284c7;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.order-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.btn-call-order {
+  background: #10b981;
+  color: #ffffff;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+/* =========================================
+   HERO BANNER & EXAMS CONTROLS
+   ========================================= */
 .hero-banner {
   background: linear-gradient(135deg, #0f766e 0%, #115e59 100%);
   color: #ffffff;
@@ -167,7 +392,6 @@ iframe, .modal-content, .course-card, .viewer-stage, .gallery-card {
   max-width: 260px;
 }
 
-/* Controls Bar */
 .controls-bar {
   display: flex;
   flex-direction: column;
@@ -252,7 +476,6 @@ iframe, .modal-content, .course-card, .viewer-stage, .gallery-card {
   color: var(--text-main);
 }
 
-/* Academic Year & Exam Sub-Groups */
 .year-group {
   margin-top: 10px;
   border: 1px solid var(--border-color);
@@ -299,9 +522,7 @@ iframe, .modal-content, .course-card, .viewer-stage, .gallery-card {
   align-items: center;
 }
 
-/* =========================================
-   GALLERY THUMBNAIL GRID
-   ========================================= */
+/* Gallery Thumbnail Grid */
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
@@ -366,7 +587,7 @@ iframe, .modal-content, .course-card, .viewer-stage, .gallery-card {
 }
 
 .gallery-caption {
-  padding: 6px 6px;
+  padding: 6px;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-main);
@@ -378,9 +599,7 @@ iframe, .modal-content, .course-card, .viewer-stage, .gallery-card {
   text-overflow: ellipsis;
 }
 
-/* =========================================
-   FULL-WINDOW VIEWER (ZERO SCROLLBARS)
-   ========================================= */
+/* Full-Window Viewer */
 .full-viewer-modal {
   position: fixed;
   inset: 0;
@@ -469,10 +688,6 @@ iframe, .modal-content, .course-card, .viewer-stage, .gallery-card {
   color: #ffffff;
 }
 
-.viewer-close-btn:hover {
-  background: #b91c1c;
-}
-
 .viewer-stage {
   position: relative;
   flex: 1;
@@ -502,7 +717,6 @@ iframe, .modal-content, .course-card, .viewer-stage, .gallery-card {
   border: none;
 }
 
-/* PDF / Image Watermark Overlay */
 .pdf-watermark-overlay {
   position: absolute;
   inset: 0;
@@ -529,9 +743,7 @@ iframe, .modal-content, .course-card, .viewer-stage, .gallery-card {
   text-transform: uppercase;
 }
 
-/* =========================================
-   ANTI-SCREENSHOT BLACKOUT OVERLAY
-   ========================================= */
+/* Anti-Screenshot Blackout */
 .security-blackout {
   position: fixed;
   inset: 0;
@@ -553,27 +765,12 @@ iframe, .modal-content, .course-card, .viewer-stage, .gallery-card {
   font-size: 1.3rem;
 }
 
-.blackout-box p {
-  color: #cbd5e1;
-  font-size: 0.9rem;
-}
-
-/* Info & Contact Cards */
+/* Info, Contact & Modals */
 .info-card {
   background: #ffffff;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: 18px;
-}
-
-.info-card h3 {
-  margin-bottom: 8px;
-}
-
-.info-card p {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  line-height: 1.5;
 }
 
 .contact-cards-container {
@@ -609,17 +806,9 @@ iframe, .modal-content, .course-card, .viewer-stage, .gallery-card {
 .contact-icon.telegram { background: #0088cc; }
 .contact-icon.phone { background: #10b981; }
 
-.contact-info-text strong {
-  display: block;
-  font-size: 0.9rem;
-}
+.contact-info-text strong { display: block; font-size: 0.9rem; }
+.contact-info-text span { font-size: 0.82rem; color: var(--text-muted); }
 
-.contact-info-text span {
-  font-size: 0.82rem;
-  color: var(--text-muted);
-}
-
-/* Payment Modal */
 .modal {
   position: fixed;
   top: 0;
@@ -679,7 +868,7 @@ iframe, .modal-content, .course-card, .viewer-stage, .gallery-card {
   margin-top: 12px;
 }
 
-/* FLOATING SUPPORT WIDGET */
+/* Floating Support Widget */
 .assistant-widget {
   position: fixed;
   bottom: 16px;

@@ -7,6 +7,35 @@ let currentGalleryItems = [];
 let currentGalleryIndex = 0;
 let currentGalleryCourse = "";
 
+// AASTU Market Products Dataset
+const marketProducts = [
+  {
+    name: "Earpod",
+    icon: "🎧",
+    description: "Wireless Bluetooth earpods with clear stereo sound, charging case, and long battery life."
+  },
+  {
+    name: "Earphone",
+    icon: "🎵",
+    description: "Durable wired earphones with built-in microphone and crisp audio for study and calls."
+  },
+  {
+    name: "Fast Charger",
+    icon: "⚡",
+    description: "High-speed wall fast charger compatible with Android & iPhone devices."
+  },
+  {
+    name: "Charger Cables",
+    icon: "🔌",
+    description: "Strong fast-charging & data transfer cables (Type-C, Micro-USB, and Lightning)."
+  },
+  {
+    name: "Adapters",
+    icon: "🔋",
+    description: "Reliable power adapters and OTG/audio converters built for daily campus use."
+  }
+];
+
 // Course Dataset
 const courses = {
   1: [
@@ -274,6 +303,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   renderCourses();
+  renderMarket();
 
   const unlockBtn = document.getElementById("unlockBtn");
   if (unlockBtn) {
@@ -323,7 +353,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Blackout when Snipping Tool or external capture window steals focus
   window.addEventListener("blur", () => {
     const shield = document.getElementById("securityBlackout");
     if (shield) shield.classList.remove("hidden");
@@ -361,12 +390,27 @@ function applyUnlockedUI() {
   }
 }
 
+function enterPortalSection(pageName) {
+  showPage(pageName);
+  const targetNav = pageName === "home" ? document.getElementById("navExamsBtn") : document.getElementById("navMarketBtn");
+  if (targetNav) {
+    document.querySelectorAll(".nav-bubble").forEach(btn => btn.classList.remove("active"));
+    targetNav.classList.add("active");
+  }
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 function showPage(pageName, event) {
   document.querySelectorAll(".page-section").forEach(sec => sec.classList.add("hidden"));
   document.querySelectorAll(".nav-bubble").forEach(btn => btn.classList.remove("active"));
 
-  if (pageName === "home") {
+  if (pageName === "welcome") {
+    document.getElementById("welcomePage").classList.remove("hidden");
+    if (!event) document.getElementById("navWelcomeBtn").classList.add("active");
+  } else if (pageName === "home") {
     document.getElementById("homePage").classList.remove("hidden");
+  } else if (pageName === "market") {
+    document.getElementById("marketPage").classList.remove("hidden");
   } else if (pageName === "about") {
     document.getElementById("aboutPage").classList.remove("hidden");
   } else if (pageName === "contact") {
@@ -378,6 +422,43 @@ function showPage(pageName, event) {
   }
 }
 
+/* =========================================
+   AASTU MARKET RENDERING & ORDER MODAL
+   ========================================= */
+function renderMarket() {
+  const grid = document.getElementById("marketGrid");
+  if (!grid) return;
+
+  grid.innerHTML = marketProducts.map((item, idx) => `
+    <div class="market-card" onclick="openMarketOrder(${idx})">
+      <div>
+        <div class="market-card-top">
+          <div class="market-item-icon">${item.icon}</div>
+          <h4>${item.name}</h4>
+        </div>
+        <p style="margin-top: 10px;">${item.description}</p>
+      </div>
+      <button class="market-order-btn">Order ${item.name}</button>
+    </div>
+  `).join("");
+}
+
+function openMarketOrder(index) {
+  const item = marketProducts[index];
+  if (!item) return;
+
+  document.getElementById("orderItemTitle").innerText = `Order: ${item.name}`;
+  document.getElementById("orderItemDesc").innerText = `Call 0944899465 or message @samirgob on Telegram to order your ${item.name}.`;
+
+  const msg = encodeURIComponent(`Hello @samirgob, I want to order ${item.name} from AASTU Market.`);
+  document.getElementById("orderTelegramLink").href = `https://t.me/samirgob?text=${msg}`;
+
+  document.getElementById("marketOrderModal").classList.remove("hidden");
+}
+
+/* =========================================
+   FRESH EXAMS RENDERING & GALLERY VIEWER
+   ========================================= */
 function switchSemester(sem) {
   currentSemester = sem;
   document.getElementById("sem1Btn").classList.toggle("active", sem === 1);
@@ -408,7 +489,6 @@ function renderCourses() {
       const papers = course.years[yr];
       const yearContainerId = `yr-${courseIdx}-${yr}`;
 
-      // Group papers into Midterm Exam vs Final Exam
       const groups = {};
       papers.forEach(p => {
         const match = p.title.match(/(Midterm|Final)/i);
@@ -567,11 +647,13 @@ function sendAssistantMessage() {
   input.value = "";
 
   setTimeout(() => {
-    let reply = "I am here to assist with portal navigation. Ask about payments or owner contacts.";
+    let reply = "I am here to assist with Fresh Exams or AASTU Market orders. Ask about payments, accessories, or owner contacts.";
     const lower = text.toLowerCase();
 
     if (lower.includes("buy") || lower.includes("pay") || lower.includes("access")) {
-      reply = "To acquire access:\n1. Transfer 100 ETB to CBE (1000654224057 - Sagni Miressa) or Telebirr (0944899465).\n2. Send your payment screenshot to @samirgob on Telegram!";
+      reply = "To unlock Fresh Exams:\n1. Transfer 100 ETB to CBE (1000654224057 - Sagni Miressa) or Telebirr (0944899465).\n2. Send your payment screenshot to @samirgob on Telegram!";
+    } else if (lower.includes("market") || lower.includes("earpod") || lower.includes("charger") || lower.includes("adapter")) {
+      reply = "AASTU Market sells Earpods, Earphones, Fast Chargers, Charger Cables, and Adapters. Call 0944899465 or message @samirgob on Telegram to order!";
     } else if (lower.includes("owner") || lower.includes("contact") || lower.includes("sagni")) {
       reply = "Portal administrator: Sagni Miressa. Contact via Telegram @samirgob or phone 0944899465.";
     }
