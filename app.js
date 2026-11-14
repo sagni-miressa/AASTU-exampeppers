@@ -5,172 +5,258 @@ let searchQuery = "";
 // Course Dataset
 const courses = {
   1: [
+    // 1. LOGIC & CRITICAL THINKING (LOG101)
     {
-      name: "Communicative English Language Skills I", code: "ENG101",
+      name: "Logic & Critical Thinking",
+      code: "LOG101",
       years: {
         "2016": [
-          { title: "2016 Midterm (PDF)", file: "./exams/eng101-2016-mid.pdf" },
-          { title: "2016 Final (PDF)", file: "./exams/eng101-2016-final.pdf" }
+          { title: "2016 Midterm - Page 1", file: "./exams/log101-2016-mid-p1.jpg" },
+          { title: "2016 Midterm - Page 2", file: "./exams/log101-2016-mid-p2.jpg" },
+          { title: "2016 Midterm - Page 3", file: "./exams/log101-2016-mid-p3.jpg" },
+          { title: "2016 Midterm - Page 4", file: "./exams/log101-2016-mid-p4.jpg" },
+          { title: "2016 Midterm - Page 6", file: "./exams/log101-2016-mid-p6.jpg" },
+          { title: "2016 Midterm - Page 7", file: "./exams/log101-2016-mid-p7.jpg" },
+          { title: "2016 Midterm - Page 8", file: "./exams/log101-2016-mid-p8.jpg" },
+          { title: "2016 Midterm - Page 9", file: "./exams/log101-2016-mid-p9.jpg" }
         ],
         "2017": [
-          { title: "2017 Midterm (PDF)", file: "./exams/eng101-2017-mid.pdf" },
-          { title: "2017 Final (PDF)", file: "./exams/eng101-2017-final.pdf" }
+          { title: "2017 Midterm - Page 1", file: "./exams/log101-2017-mid-p1.jpg" },
+          { title: "2017 Midterm - Page 2", file: "./exams/log101-2017-mid-p2.jpg" },
+          { title: "2017 Midterm - Page 3", file: "./exams/log101-2017-mid-p3.jpg" }
         ],
         "2018": [
-          { title: "2018 Midterm (PDF)", file: "./exams/eng101-2018-mid.pdf" },
-          { title: "2018 Final (PDF)", file: "./exams/eng101-2018-final.pdf" }
+          { title: "2018 Final - Page 1", file: "./exams/log101-2018-final-p1.jpg" },
+          { title: "2018 Final - Page 2", file: "./exams/log101-2018-final-p2.jpg" },
+          { title: "2018 Final - Page 3", file: "./exams/log101-2018-final-p3.jpg" },
+          { title: "2018 Final - Page 4", file: "./exams/log101-2018-final-p4.jpg" },
+          { title: "2018 Final - Page 5", file: "./exams/log101-2018-final-p5.jpg" }
         ]
       }
     },
+
+    // 2. GENERAL PSYCHOLOGY (PSY101)
     {
-      name: "General Psychology", code: "PSY101",
+      name: "General Psychology",
+      code: "PSY101",
       years: {
         "2016": [
-          { title: "2016 Midterm (PDF)", file: "./exams/psy101-2016-mid.pdf" },
-          { title: "2016 Final (PDF)", file: "./exams/psy101-2016-final.pdf" }
+          { title: "2016 Final - Page 1", file: "./exams/psy101-2016-final-p1.jpg" },
+          { title: "2016 Final - Page 2", file: "./exams/psy101-2016-final-p2.jpg" },
+          { title: "2016 Final - Page 3", file: "./exams/psy101-2016-final-p3.jpg" },
+          { title: "2016 Final - Page 4", file: "./exams/psy101-2016-final-p4.jpg" },
+          { title: "2016 Final - Page 6", file: "./exams/psy101-2016-final-p6.jpg" }
         ],
         "2017": [
-          { title: "2017 Midterm (PDF)", file: "./exams/psy101-2017-mid.pdf" },
-          { title: "2017 Final (PDF)", file: "./exams/psy101-2017-final.pdf" }
-        ],
-        "2018": [
-          { title: "2018 Midterm (PDF)", file: "./exams/psy101-2018-mid.pdf" },
-          { title: "2018 Final (PDF)", file: "./exams/psy101-2018-final.pdf" }
+          { title: "2017 Final - Page 1", file: "./exams/psy101-2017-final-p1.jpg" },
+          { title: "2017 Final - Page 2", file: "./exams/psy101-2017-final-p2.jpg" },
+          { title: "2017 Final - Page 3", file: "./exams/psy101-2017-final-p3.jpg" },
+          { title: "2017 Final - Page 4", file: "./exams/psy101-2017-final-p4.jpg" },
+          { title: "2017 Final - Page 5", file: "./exams/psy101-2017-final-p5.jpg" }
         ]
       }
     },
+
+    // 3. GENERAL MATHEMATICS (MATH100)
     {
-      name: "Applied Mathematics I", code: "MATH101",
+      name: "General Mathematics",
+      code: "MATH100",
       years: {
         "2016": [
-          { title: "2016 Midterm (PDF)", file: "./exams/math101-2016-mid.pdf" },
-          { title: "2016 Final (PDF)", file: "./exams/math101-2016-final.pdf" }
+          { title: "2016 Midterm - Page 1", file: "./exams/math100-2016-mid-p1.jpg" },
+          { title: "2016 Midterm - Page 2", file: "./exams/math100-2016-mid-p2.jpg" },
+          { title: "2016 Final - Page 1", file: "./exams/math100-2016-final-p1.jpg" },
+          { title: "2016 Final - Page 2", file: "./exams/math100-2016-final-p2.jpg" },
+          { title: "2016 Final - Page 3", file: "./exams/math100-2016-final-p3.jpg" },
+          { title: "2016 Final - Page 9", file: "./exams/math100-2016-final-p9.jpg" },
+          { title: "2016 Final - Page 10", file: "./exams/math100-2016-final-p10.jpg" },
+          { title: "2016 Final - Page 11", file: "./exams/math100-2016-final-p11.jpg" },
+          { title: "2016 Final - Page 12", file: "./exams/math100-2016-final-p12.jpg" },
+          { title: "2016 Final - Page 13", file: "./exams/math100-2016-final-p13.jpg" },
+          { title: "2016 Final - Page 14", file: "./exams/math100-2016-final-p14.jpg" },
+          { title: "2016 Final - Page 15", file: "./exams/math100-2016-final-p15.jpg" }
         ],
         "2017": [
-          { title: "2017 Midterm (PDF)", file: "./exams/math101-2017-mid.pdf" },
-          { title: "2017 Final (PDF)", file: "./exams/math101-2017-final.pdf" }
+          { title: "2017 Final - Page 1", file: "./exams/math100-2017-final-p1.jpg" },
+          { title: "2017 Final - Page 2", file: "./exams/math100-2017-final-p2.jpg" },
+          { title: "2017 Final - Page 3", file: "./exams/math100-2017-final-p3.jpg" },
+          { title: "2017 Final - Page 4", file: "./exams/math100-2017-final-p4.jpg" },
+          { title: "2017 Final - Page 5", file: "./exams/math100-2017-final-p5.jpg" },
+          { title: "2017 Final - Page 6", file: "./exams/math100-2017-final-p6.jpg" },
+          { title: "2017 Final - Page 7", file: "./exams/math100-2017-final-p7.jpg" },
+          { title: "2017 Final - Page 8", file: "./exams/math100-2017-final-p8.jpg" },
+          { title: "2017 Final - Page 9", file: "./exams/math100-2017-final-p9.jpg" },
+          { title: "2017 Final - Page 10", file: "./exams/math100-2017-final-p10.jpg" },
+          { title: "2017 Final - Page 11", file: "./exams/math100-2017-final-p11.jpg" },
+          { title: "2017 Final - Page 12", file: "./exams/math100-2017-final-p12.jpg" }
         ],
         "2018": [
-          { title: "2018 Midterm (PDF)", file: "./exams/math101-2018-mid.pdf" },
-          { title: "2018 Final (PDF)", file: "./exams/math101-2018-final.pdf" }
+          { title: "2018 Final - Page 1", file: "./exams/math100-2018-final-p1.jpg" },
+          { title: "2018 Final - Page 2", file: "./exams/math100-2018-final-p2.jpg" },
+          { title: "2018 Final - Page 3", file: "./exams/math100-2018-final-p3.jpg" },
+          { title: "2018 Final - Page 4", file: "./exams/math100-2018-final-p4.jpg" },
+          { title: "2018 Final - Page 5", file: "./exams/math100-2018-final-p5.jpg" },
+          { title: "2018 Final - Page 6", file: "./exams/math100-2018-final-p6.jpg" },
+          { title: "2018 Final - Page 7", file: "./exams/math100-2018-final-p7.jpg" },
+          { title: "2018 Final - Page 9", file: "./exams/math100-2018-final-p9.jpg" },
+          { title: "2018 Final - Page 10", file: "./exams/math100-2018-final-p10.jpg" },
+          { title: "2018 Final - Page 11", file: "./exams/math100-2018-final-p11.jpg" },
+          { title: "2018 Final - Page 12", file: "./exams/math100-2018-final-p12.jpg" },
+          { title: "2018 Final - Page 13", file: "./exams/math100-2018-final-p13.jpg" }
         ]
       }
     },
+
+    // 4. COMMUNICATIVE ENGLISH I (ENG101)
     {
-      name: "Logic & Critical Thinking", code: "LOG101",
+      name: "Communicative English I",
+      code: "ENG101",
       years: {
-        "2016": [
-          { title: "2016 Midterm (PDF)", file: "./exams/log101-2016-mid.pdf" },
-          { title: "2016 Final (PDF)", file: "./exams/log101-2016-final.pdf" }
-        ],
         "2017": [
-          { title: "2017 Midterm (PDF)", file: "./exams/log101-2017-mid.pdf" },
-          { title: "2017 Final (PDF)", file: "./exams/log101-2017-final.pdf" }
+          { title: "2017 Final - Page 1", file: "./exams/eng101-2017-final-p1.jpg" },
+          { title: "2017 Final - Page 2", file: "./exams/eng101-2017-final-p2.jpg" },
+          { title: "2017 Final - Page 3", file: "./exams/eng101-2017-final-p3.jpg" },
+          { title: "2017 Final - Page 4", file: "./exams/eng101-2017-final-p4.jpg" },
+          { title: "2017 Final - Page 5", file: "./exams/eng101-2017-final-p5.jpg" },
+          { title: "2017 Final - Page 6", file: "./exams/eng101-2017-final-p6.jpg" },
+          { title: "2017 Final - Page 7", file: "./exams/eng101-2017-final-p7.jpg" },
+          { title: "2017 Final - Page 8", file: "./exams/eng101-2017-final-p8.jpg" }
         ],
         "2018": [
-          { title: "2018 Midterm (PDF)", file: "./exams/log101-2018-mid.pdf" },
-          { title: "2018 Final (PDF)", file: "./exams/log101-2018-final.pdf" }
+          { title: "2018 Final - Page 1", file: "./exams/eng101-2018-final-p1.jpg" },
+          { title: "2018 Final - Page 2", file: "./exams/eng101-2018-final-p2.jpg" },
+          { title: "2018 Final - Page 3", file: "./exams/eng101-2018-final-p3.jpg" },
+          { title: "2018 Final - Page 4", file: "./exams/eng101-2018-final-p4.jpg" },
+          { title: "2018 Final - Page 5", file: "./exams/eng101-2018-final-p5.jpg" },
+          { title: "2018 Final - Page 6", file: "./exams/eng101-2018-final-p6.jpg" },
+          { title: "2018 Final - Page 7", file: "./exams/eng101-2018-final-p7.jpg" },
+          { title: "2018 Final - Page 8", file: "./exams/eng101-2018-final-p8.jpg" }
         ]
       }
     },
+
+    // 5. GENERAL PHYSICS (PHYS101)
     {
-      name: "General Mathematics", code: "MATH100",
+      name: "General Physics",
+      code: "PHYS101",
       years: {
         "2016": [
-          { title: "2016 Midterm (PDF)", file: "./exams/math100-2016-mid.pdf" },
-          { title: "2016 Final (PDF)", file: "./exams/math100-2016-final.pdf" }
+          { title: "2016 Final - Page 1", file: "./exams/phys101-2016-final-p1.jpg" },
+          { title: "2016 Final - Page 2", file: "./exams/phys101-2016-final-p2.jpg" },
+          { title: "2016 Final - Page 3", file: "./exams/phys101-2016-final-p3.jpg" },
+          { title: "2016 Final - Page 4", file: "./exams/phys101-2016-final-p4.jpg" },
+          { title: "2016 Final - Page 5", file: "./exams/phys101-2016-final-p5.jpg" },
+          { title: "2016 Final - Page 6", file: "./exams/phys101-2016-final-p6.jpg" },
+          { title: "2016 Final - Page 7", file: "./exams/phys101-2016-final-p7.jpg" },
+          { title: "2016 Final - Page 8", file: "./exams/phys101-2016-final-p8.jpg" }
         ],
         "2017": [
-          { title: "2017 Midterm (PDF)", file: "./exams/math100-2017-mid.pdf" },
-          { title: "2017 Final (PDF)", file: "./exams/math100-2017-final.pdf" }
+          { title: "2017 Final - Page 1", file: "./exams/phys101-2017-final-p1.jpg" },
+          { title: "2017 Final - Page 2", file: "./exams/phys101-2017-final-p2.jpg" },
+          { title: "2017 Final - Page 3", file: "./exams/phys101-2017-final-p3.jpg" },
+          { title: "2017 Final - Page 4", file: "./exams/phys101-2017-final-p4.jpg" },
+          { title: "2017 Final - Page 5", file: "./exams/phys101-2017-final-p5.jpg" },
+          { title: "2017 Final - Page 6", file: "./exams/phys101-2017-final-p6.jpg" },
+          { title: "2017 Final - Page 8", file: "./exams/phys101-2017-final-p8.jpg" },
+          { title: "2017 Final - Page 9", file: "./exams/phys101-2017-final-p9.jpg" },
+          { title: "2017 Final - Page 10", file: "./exams/phys101-2017-final-p10.jpg" },
+          { title: "2017 Final - Page 12", file: "./exams/phys101-2017-final-p12.jpg" },
+          { title: "2017 Final - Page 14", file: "./exams/phys101-2017-final-p14.jpg" },
+          { title: "2017 Final - Page 15", file: "./exams/phys101-2017-final-p15.jpg" },
+          { title: "2017 Final - Page 16", file: "./exams/phys101-2017-final-p16.jpg" },
+          { title: "2017 Final - Page 17", file: "./exams/phys101-2017-final-p18.jpg" },
+          { title: "2017 Final - Page 18", file: "./exams/phys101-2017-final-p18.jpg" },
+          { title: "2017 Final - Page 19", file: "./exams/phys101-2017-final-p19.jpg" },
+          { title: "2017 Final - Extra 1", file: "./exams/phys101-2017-final-p134.jpg" },
+          { title: "2017 Final - Extra 2", file: "./exams/phys101-2017-final-p191.jpg" }
         ],
         "2018": [
-          { title: "2018 Midterm (PDF)", file: "./exams/math100-2018-mid.pdf" },
-          { title: "2018 Final (PDF)", file: "./exams/math100-2018-final.pdf" }
+          { title: "2018 Final - Page 1", file: "./exams/phys101-2018-final-p1.jpg" },
+          { title: "2018 Final - Page 2", file: "./exams/phys101-2018-final-p2.jpg" },
+          { title: "2018 Final - Page 3", file: "./exams/phys101-2018-final-p3.jpg" },
+          { title: "2018 Final - Page 4", file: "./exams/phys101-2018-final-p4.jpg" },
+          { title: "2018 Final - Page 5", file: "./exams/phys101-2018-final-p5.jpg" },
+          { title: "2018 Final - Page 6", file: "./exams/phys101-2018-final-p6.jpg" },
+          { title: "2018 Final - Page 7", file: "./exams/phys101-2018-final-p7.jpg" },
+          { title: "2018 Final - Page 8", file: "./exams/phys101-2018-final-p8.jpg" },
+          { title: "2018 Final - Page 9", file: "./exams/phys101-2018-final-p9.jpg" },
+          { title: "2018 Final - Page 10", file: "./exams/phys101-2018-final-p10.jpg" },
+          { title: "2018 Final - Page 11", file: "./exams/phys101-2018-final-p11.jpg" },
+          { title: "2018 Final - Page 12", file: "./exams/phys101-2018-final-p12.jpg" },
+          { title: "2018 Final - Page 13", file: "./exams/phys101-2018-final-p13.jpg" },
+          { title: "2018 Final - Page 14", file: "./exams/phys101-2018-final-p14.jpg" },
+          { title: "2018 Final - Page 15", file: "./exams/phys101-2018-final-p15.jpg" },
+          { title: "2018 Final - Page 16", file: "./exams/phys101-2018-final-p16.jpg" },
+          { title: "2018 Final - Page 17", file: "./exams/phys101-2018-final-p17.jpg" },
+          { title: "2018 Final - Page 19", file: "./exams/phys101-2018-final-p19.jpg" },
+          { title: "2018 Final - Page 20", file: "./exams/phys101-2018-final-p20.jpg" },
+          { title: "2018 Final - Page 21", file: "./exams/phys101-2018-final-p21.jpg" },
+          { title: "2018 Final - Page 22", file: "./exams/phys101-2018-final-p22.jpg" },
+          { title: "2018 Final - Page 23", file: "./exams/phys101-2018-final-p23.jpg" },
+          { title: "2018 Final - Page 24", file: "./exams/phys101-2018-final-24.jpg" },
+          { title: "2018 Final - Page 25", file: "./exams/phys101-2018-final-p25.jpg" },
+          { title: "2018 Final - Page 26", file: "./exams/phys101-2018-final-p26.jpg" },
+          { title: "2018 Final - Page 27", file: "./exams/phys101-2018-final-p27.jpg" }
+        ]
+      }
+    },
+
+    // 6. HISTORY OF ETHIOPIA & THE HORN (HIST101)
+    {
+      name: "History of Ethiopia & the Horn",
+      code: "HIST101",
+      years: {
+        "2016": [
+          { title: "2016 Midterm - Page 1", file: "./exams/hist101-2016-mid-p1.jpg" },
+          { title: "2016 Midterm - Page 2", file: "./exams/hist101-2016-mid-p2.jpg" },
+          { title: "2016 Midterm - Page 3", file: "./exams/hist101-2016-mid-p3.jpg" },
+          { title: "2016 Midterm - Page 4", file: "./exams/hist101-2016-mid-p4.jpg" },
+          { title: "2016 Midterm - Page 5", file: "./exams/hist101-2016-mid-p5.jpg" },
+          { title: "2016 Midterm - Page 6", file: "./exams/hist101-2016-mid-p6.jpg" },
+          { title: "2016 Midterm - Page 7", file: "./exams/hist101-2016-mid-p7.jpg" }
         ]
       }
     }
   ],
+
   2: [
+    // 1. SOCIAL ANTHROPOLOGY (ANT102)
     {
-      name: "Communicative English Language Skills II", code: "ENG102",
+      name: "Social Anthropology",
+      code: "ANT102",
       years: {
         "2016": [
-          { title: "2016 Midterm (PDF)", file: "./exams/eng102-2016-mid.pdf" },
-          { title: "2016 Final (PDF)", file: "./exams/eng102-2016-final.pdf" }
+          { title: "2016 Final - Page 1", file: "./exams/ant102-2016-final-p1.jpg" },
+          { title: "2016 Final - Page 2", file: "./exams/ant102-2016-final-p2.jpg" },
+          { title: "2016 Final - Page 3", file: "./exams/ant102-2016-final-p3.jpg" },
+          { title: "2016 Final - Page 5", file: "./exams/ant102-2016-final-p5.jpg" }
         ],
         "2017": [
-          { title: "2017 Midterm (PDF)", file: "./exams/eng102-2017-mid.pdf" },
-          { title: "2017 Final (PDF)", file: "./exams/eng102-2017-final.pdf" }
-        ],
-        "2018": [
-          { title: "2018 Midterm (PDF)", file: "./exams/eng102-2018-mid.pdf" },
-          { title: "2018 Final (PDF)", file: "./exams/eng102-2018-final.pdf" }
+          { title: "2017 Final - Page 1", file: "./exams/ant102-2017-final-p1.jpg" },
+          { title: "2017 Final - Page 2", file: "./exams/ant102-2017-final-p2.jpg" },
+          { title: "2017 Final - Page 3", file: "./exams/ant102-2017-final-p3.jpg" },
+          { title: "2017 Final - Page 4", file: "./exams/ant102-2017-final-p4.jpg" },
+          { title: "2017 Final - Page 5", file: "./exams/ant102-2017-final-p5.jpg" },
+          { title: "2017 Final - Page 6", file: "./exams/ant102-2017-final-p6.jpg" }
         ]
       }
     },
+
+    // 2. ENTREPRENEURSHIP (ENT102)
     {
-      name: "Entrepreneurship", code: "ENT102",
+      name: "Entrepreneurship",
+      code: "ENT102",
       years: {
-        "2016": [
-          { title: "2016 Midterm (PDF)", file: "./exams/ent102-2016-mid.pdf" },
-          { title: "2016 Final (PDF)", file: "./exams/ent102-2016-final.pdf" }
-        ],
         "2017": [
-          { title: "2017 Midterm (PDF)", file: "./exams/ent102-2017-mid.pdf" },
-          { title: "2017 Final (PDF)", file: "./exams/ent102-2017-final.pdf" }
-        ],
-        "2018": [
-          { title: "2018 Midterm (PDF)", file: "./exams/ent102-2018-mid.pdf" },
-          { title: "2018 Final (PDF)", file: "./exams/ent102-2018-final.pdf" }
-        ]
-      }
-    },
-    {
-      name: "Social Anthropology", code: "ANT102",
-      years: {
-        "2016": [
-          { title: "2016 Midterm (PDF)", file: "./exams/ant102-2016-mid.pdf" },
-          { title: "2016 Final (PDF)", file: "./exams/ant102-2016-final.pdf" }
-        ],
-        "2017": [
-          { title: "2017 Midterm (PDF)", file: "./exams/ant102-2017-mid.pdf" },
-          { title: "2017 Final (PDF)", file: "./exams/ant102-2017-final.pdf" }
-        ],
-        "2018": [
-          { title: "2018 Midterm (PDF)", file: "./exams/ant102-2018-mid.pdf" },
-          { title: "2018 Final (PDF)", file: "./exams/ant102-2018-final.pdf" }
-        ]
-      }
-    },
-    {
-      name: "Emerging Technologies", code: "EMTG102",
-      years: {
-        "2016": [
-          { title: "2016 Midterm (PDF)", file: "./exams/emtg102-2016-mid.pdf" },
-          { title: "2016 Final (PDF)", file: "./exams/emtg102-2016-final.pdf" }
-        ],
-        "2017": [
-          { title: "2017 Midterm (PDF)", file: "./exams/emtg102-2017-mid.pdf" },
-          { title: "2017 Final (PDF)", file: "./exams/emtg102-2017-final.pdf" }
-        ],
-        "2018": [
-          { title: "2018 Midterm (PDF)", file: "./exams/emtg102-2018-mid.pdf" },
-          { title: "2018 Final (PDF)", file: "./exams/emtg102-2018-final.pdf" }
-        ]
-      }
-    },
-    {
-      name: "Health & Physical Education", code: "HPE102",
-      years: {
-        "2016": [
-          { title: "2016 Final (PDF)", file: "./exams/hpe102-2016-final.pdf" }
-        ],
-        "2017": [
-          { title: "2017 Final (PDF)", file: "./exams/hpe102-2017-final.pdf" }
-        ],
-        "2018": [
-          { title: "2018 Final (PDF)", file: "./exams/hpe102-2018-final.pdf" }
+          { title: "2017 Final - Page 1", file: "./exams/ent102-2017-final-p1.jpg" },
+          { title: "2017 Final - Page 2", file: "./exams/ent102-2017-final-p2.jpg" },
+          { title: "2017 Final - Page 3", file: "./exams/ent102-2017-final-p3.jpg" },
+          { title: "2017 Final - Page 4", file: "./exams/ent102-2017-final-p4.jpg" },
+          { title: "2017 Final - Page 5", file: "./exams/ent102-2017-final-p5.jpg" },
+          { title: "2017 Final - Page 6", file: "./exams/ent102-2017-final-p6.jpg" },
+          { title: "2017 Final - Page 7", file: "./exams/ent102-2017-final-p7.jpg" },
+          { title: "2017 Final - Page 8", file: "./exams/ent102-2017-final-p8.jpg" },
+          { title: "2017 Final - Page 9", file: "./exams/ent102-2017-final-p9.jpg" }
         ]
       }
     }
@@ -374,7 +460,6 @@ function sendAssistantMessage() {
     } else if (lower.includes("owner") || lower.includes("contact") || lower.includes("sagni")) {
       reply = "Portal administrator: Sagni Miressa. Contact via Telegram @samirgob or phone 0944899465.";
     }
-
     appendChatMsg(reply, "bot");
   }, 350);
 }
