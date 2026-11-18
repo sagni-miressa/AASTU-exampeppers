@@ -36,7 +36,7 @@ const marketProducts = [
   }
 ];
 
-// Course Dataset
+// Course Dataset (All 256 Files Mapped & Sorted)
 const courses = {
   1: [
     // 1. LOGIC & CRITICAL THINKING (LOG101)
@@ -57,14 +57,35 @@ const courses = {
         "2017": [
           { title: "2017 Midterm - Page 1", file: "./exams/log101-2017-mid-p1.jpg" },
           { title: "2017 Midterm - Page 2", file: "./exams/log101-2017-mid-p2.jpg" },
-          { title: "2017 Midterm - Page 3", file: "./exams/log101-2017-mid-p3.jpg" }
+          { title: "2017 Midterm - Page 3", file: "./exams/log101-2017-mid-p3.jpg" },
+          { title: "2017 Final - Page 1", file: "./exams/log101-2017-final-p1.jpg" },
+          { title: "2017 Final - Page 2", file: "./exams/log101-2017-final-p2.jpg" },
+          { title: "2017 Final - Page 3", file: "./exams/log101-2017-final-p3.jpg" },
+          { title: "2017 Final - Page 4", file: "./exams/log101-2017-final-p4.jpg" },
+          { title: "2017 Final - Page 5", file: "./exams/log101-2017-final-p5.jpg" },
+          { title: "2017 Final - Page 6", file: "./exams/log101-2017-final-p6.jpg" },
+          { title: "2017 Final - Page 7", file: "./exams/log101-2017-final-p7.jpg" },
+          { title: "2017 Final - Page 8", file: "./exams/log101-2017-final-p8.jpg" },
+          { title: "2017 Final - Page 9", file: "./exams/log101-2017-final-p9.jpg" },
+          { title: "2017 Final - Page 10", file: "./exams/log101-2017-final-p10.jpg" },
+          { title: "2017 Final - Page 11", file: "./exams/log101-2017-final-p11.jpg" },
+          { title: "2017 Final - Page 13", file: "./exams/log101-2017-final-p13.jpg" }
         ],
         "2018": [
           { title: "2018 Final - Page 1", file: "./exams/log101-2018-final-p1.jpg" },
           { title: "2018 Final - Page 2", file: "./exams/log101-2018-final-p2.jpg" },
           { title: "2018 Final - Page 3", file: "./exams/log101-2018-final-p3.jpg" },
           { title: "2018 Final - Page 4", file: "./exams/log101-2018-final-p4.jpg" },
-          { title: "2018 Final - Page 5", file: "./exams/log101-2018-final-p5.jpg" }
+          { title: "2018 Final - Page 5", file: "./exams/log101-2018-final-p5.jpg" },
+          { title: "2018 Final - Page 7", file: "./exams/log101-2018-final-p7.jpg" },
+          { title: "2018 Final - Page 8", file: "./exams/log101-2018-final-p8.jpg" },
+          { title: "2018 Final - Page 9", file: "./exams/log101-2018-final-p9.jpg" },
+          { title: "2018 Final - Page 10", file: "./exams/log101-2018-final-p10.jpg" },
+          { title: "2018 Final - Page 11", file: "./exams/log101-2018-final-p11.jpg" },
+          { title: "2018 Final - Page 12", file: "./exams/log101-2018-final-p12.jpg" },
+          { title: "2018 Final - Page 13", file: "./exams/log101-2018-final-p13.jpg" },
+          { title: "2018 Final - Page 14", file: "./exams/log101-2018-final-p14.jpg" },
+          { title: "2018 Final - Page 15", file: "./exams/log101-2018-final-p15.jpg" }
         ]
       }
     },
@@ -79,7 +100,11 @@ const courses = {
           { title: "2016 Final - Page 2", file: "./exams/psy101-2016-final-p2.jpg" },
           { title: "2016 Final - Page 3", file: "./exams/psy101-2016-final-p3.jpg" },
           { title: "2016 Final - Page 4", file: "./exams/psy101-2016-final-p4.jpg" },
-          { title: "2016 Final - Page 6", file: "./exams/psy101-2016-final-p6.jpg" }
+          { title: "2016 Final - Page 6", file: "./exams/psy101-2016-final-p6.jpg" },
+          { title: "2016 Final - Page 7", file: "./exams/psy101-2016-final-p7.jpg" },
+          { title: "2016 Final - Page 8", file: "./exams/psy101-2016-final-p8.jpg" },
+          { title: "2016 Final - Page 9", file: "./exams/psy101-2016-final-p9.jpg" },
+          { title: "2016 Final - Page 10", file: "./exams/psy101-2016-final-p10.jpg" }
         ],
         "2017": [
           { title: "2017 Final - Page 1", file: "./exams/psy101-2017-final-p1.jpg" },
@@ -87,6 +112,12 @@ const courses = {
           { title: "2017 Final - Page 3", file: "./exams/psy101-2017-final-p3.jpg" },
           { title: "2017 Final - Page 4", file: "./exams/psy101-2017-final-p4.jpg" },
           { title: "2017 Final - Page 5", file: "./exams/psy101-2017-final-p5.jpg" }
+        ],
+        "2018": [
+          { title: "2018 Midterm - Page 1", file: "./exams/psy101-2018-mid-p1.jpg" },
+          { title: "2018 Midterm - Page 2", file: "./exams/psy101-2018-mid-p2.jpg" },
+          { title: "2018 Midterm - Page 3", file: "./exams/psy101-2018-mid-p3.jpg" },
+          { title: "2018 Midterm - Page 4", file: "./exams/psy101-2018-mid-p4.jpg" }
         ]
       }
     },
@@ -122,9 +153,25 @@ const courses = {
           { title: "2017 Final - Page 9", file: "./exams/math100-2017-final-p9.jpg" },
           { title: "2017 Final - Page 10", file: "./exams/math100-2017-final-p10.jpg" },
           { title: "2017 Final - Page 11", file: "./exams/math100-2017-final-p11.jpg" },
-          { title: "2017 Final - Page 12", file: "./exams/math100-2017-final-p12.jpg" }
+          { title: "2017 Final - Page 12", file: "./exams/math100-2017-final-p12.jpg" },
+          { title: "2017 Final - Page 13", file: "./exams/math100-2017-final-p13.jpg" },
+          { title: "2017 Final - Page 14", file: "./exams/math100-2017-final-p14.jpg" },
+          { title: "2017 Final - Page 15", file: "./exams/math100-2017-final-p15.jpg" },
+          { title: "2017 Final - Page 16", file: "./exams/math100-2017-final-p16.jpg" },
+          { title: "2017 Final - Page 17", file: "./exams/math100-2017-final-p17.jpg" },
+          { title: "2017 Final - Page 18", file: "./exams/math100-2017-final-p18.jpg" },
+          { title: "2017 Final - Page 19", file: "./exams/math100-2017-final-p19.jpg" }
         ],
         "2018": [
+          { title: "2018 Midterm - PDF 1", file: "./exams/math100-2018-mid.pdf" },
+          { title: "2018 Midterm - PDF 2", file: "./exams/math100-2018-mid2.pdf" },
+          { title: "2018 Midterm - PDF 3", file: "./exams/math100-2018-mid3.pdf" },
+          { title: "2018 Midterm - Page 1", file: "./exams/math100-2018-mid-p1.jpg" },
+          { title: "2018 Midterm - Page 2", file: "./exams/math100-2018-mid-p2.jpg" },
+          { title: "2018 Midterm - Page 3", file: "./exams/math100-2018-mid-p3.jpg" },
+          { title: "2018 Midterm - Page 4", file: "./exams/math100-2018-mid-p4.jpg" },
+          { title: "2018 Midterm - Page 6", file: "./exams/math100-2018-mid-p6.jpg" },
+          { title: "2018 Midterm - Page 8", file: "./exams/math100-2018-mid-p8.jpg" },
           { title: "2018 Final - Page 1", file: "./exams/math100-2018-final-p1.jpg" },
           { title: "2018 Final - Page 2", file: "./exams/math100-2018-final-p2.jpg" },
           { title: "2018 Final - Page 3", file: "./exams/math100-2018-final-p3.jpg" },
@@ -136,7 +183,10 @@ const courses = {
           { title: "2018 Final - Page 10", file: "./exams/math100-2018-final-p10.jpg" },
           { title: "2018 Final - Page 11", file: "./exams/math100-2018-final-p11.jpg" },
           { title: "2018 Final - Page 12", file: "./exams/math100-2018-final-p12.jpg" },
-          { title: "2018 Final - Page 13", file: "./exams/math100-2018-final-p13.jpg" }
+          { title: "2018 Final - Page 13", file: "./exams/math100-2018-final-p13.jpg" },
+          { title: "2018 Final - Page 20", file: "./exams/math100-2018-final-p20.jpg" },
+          { title: "2018 Final - Page 21", file: "./exams/math100-2018-final-p21.jpg" },
+          { title: "2018 Final - Page 22", file: "./exams/math100-2018-final-p22.jpg" }
         ]
       }
     },
@@ -157,6 +207,11 @@ const courses = {
           { title: "2017 Final - Page 8", file: "./exams/eng101-2017-final-p8.jpg" }
         ],
         "2018": [
+          { title: "2018 Midterm - PDF", file: "./exams/eng101-2018-mid.pdf" },
+          { title: "2018 Midterm - Page 1", file: "./exams/eng101-2018-mid-p1.jpg" },
+          { title: "2018 Midterm - Page 2", file: "./exams/eng101-2018-mid-p2.jpg" },
+          { title: "2018 Midterm - Page 3", file: "./exams/eng101-2018-mid-p3.jpg" },
+          { title: "2018 Midterm - Page 4", file: "./exams/eng101-2018-mid-p4.jpg" },
           { title: "2018 Final - Page 1", file: "./exams/eng101-2018-final-p1.jpg" },
           { title: "2018 Final - Page 2", file: "./exams/eng101-2018-final-p2.jpg" },
           { title: "2018 Final - Page 3", file: "./exams/eng101-2018-final-p3.jpg" },
@@ -164,7 +219,17 @@ const courses = {
           { title: "2018 Final - Page 5", file: "./exams/eng101-2018-final-p5.jpg" },
           { title: "2018 Final - Page 6", file: "./exams/eng101-2018-final-p6.jpg" },
           { title: "2018 Final - Page 7", file: "./exams/eng101-2018-final-p7.jpg" },
-          { title: "2018 Final - Page 8", file: "./exams/eng101-2018-final-p8.jpg" }
+          { title: "2018 Final - Page 8", file: "./exams/eng101-2018-final-p8.jpg" },
+          { title: "2018 Final - Page 10", file: "./exams/eng101-2018-final-p10.jpg" },
+          { title: "2018 Final - Page 11", file: "./exams/eng101-2018-final-p11.jpg" },
+          { title: "2018 Final - Page 12", file: "./exams/eng101-2018-final-p12.jpg" },
+          { title: "2018 Final - Page 13", file: "./exams/eng101-2018-final-p13.jpg" },
+          { title: "2018 Final - Page 14", file: "./exams/eng101-2018-final-p14.jpg" },
+          { title: "2018 Final - Page 15", file: "./exams/eng101-2018-final-p15.jpg" },
+          { title: "2018 Final - Page 16", file: "./exams/eng101-2018-final-p16.jpg" },
+          { title: "2018 Final - Page 17", file: "./exams/eng101-2018-final-p17.jpg" },
+          { title: "2018 Final - Page 18", file: "./exams/eng101-2018-final-p18.jpg" },
+          { title: "2018 Final - Page 19", file: "./exams/eng101-2018-final-p19.jpg" }
         ]
       }
     },
@@ -182,15 +247,29 @@ const courses = {
           { title: "2016 Final - Page 5", file: "./exams/phys101-2016-final-p5.jpg" },
           { title: "2016 Final - Page 6", file: "./exams/phys101-2016-final-p6.jpg" },
           { title: "2016 Final - Page 7", file: "./exams/phys101-2016-final-p7.jpg" },
-          { title: "2016 Final - Page 8", file: "./exams/phys101-2016-final-p8.jpg" }
+          { title: "2016 Final - Page 8", file: "./exams/phys101-2016-final-p8.jpg" },
+          { title: "2016 Final - Page 10", file: "./exams/phys101-2016-final-p10.jpg" },
+          { title: "2016 Final - Page 11", file: "./exams/phys101-2016-final-p11.jpg" },
+          { title: "2016 Final - Page 12", file: "./exams/phys101-2016-final-p12.jpg" },
+          { title: "2016 Final - Page 13", file: "./exams/phys101-2016-final-p13.jpg" }
         ],
         "2017": [
+          { title: "2017 Midterm - PDF 1", file: "./exams/phys101-2017-mid.pdf" },
+          { title: "2017 Midterm - PDF 2", file: "./exams/phys101-2017-mid3.pdf" },
+          { title: "2017 Midterm - Page 1", file: "./exams/phys101-2017-mid-p1.jpg" },
+          { title: "2017 Midterm - Page 2", file: "./exams/phys101-2017-mid-p2.jpg" },
+          { title: "2017 Midterm - Page 4", file: "./exams/phys101-2017-mid-p4.jpg" },
+          { title: "2017 Midterm - Page 5", file: "./exams/phys101-2017-mid-p5.jpg" },
+          { title: "2017 Midterm - Page 6", file: "./exams/phys101-2017-mid-p6.jpg" },
+          { title: "2017 Midterm - Page 7", file: "./exams/phys101-2017-mid-p7.jpg" },
+          { title: "2017 Midterm - Page 8", file: "./exams/phys101-2017-mid-p8.jpg" },
           { title: "2017 Final - Page 1", file: "./exams/phys101-2017-final-p1.jpg" },
           { title: "2017 Final - Page 2", file: "./exams/phys101-2017-final-p2.jpg" },
           { title: "2017 Final - Page 3", file: "./exams/phys101-2017-final-p3.jpg" },
           { title: "2017 Final - Page 4", file: "./exams/phys101-2017-final-p4.jpg" },
           { title: "2017 Final - Page 5", file: "./exams/phys101-2017-final-p5.jpg" },
           { title: "2017 Final - Page 6", file: "./exams/phys101-2017-final-p6.jpg" },
+          { title: "2017 Final - Page 7", file: "./exams/phys101-2017-final-p7.jpg" },
           { title: "2017 Final - Page 8", file: "./exams/phys101-2017-final-p8.jpg" },
           { title: "2017 Final - Page 9", file: "./exams/phys101-2017-final-p9.jpg" },
           { title: "2017 Final - Page 10", file: "./exams/phys101-2017-final-p10.jpg" },
@@ -198,13 +277,48 @@ const courses = {
           { title: "2017 Final - Page 14", file: "./exams/phys101-2017-final-p14.jpg" },
           { title: "2017 Final - Page 15", file: "./exams/phys101-2017-final-p15.jpg" },
           { title: "2017 Final - Page 16", file: "./exams/phys101-2017-final-p16.jpg" },
-          { title: "2017 Final - Page 17", file: "./exams/phys101-2017-final-p18.jpg" },
+          { title: "2017 Final - Page 17", file: "./exams/phys101-2017-final-p17.jpg" },
           { title: "2017 Final - Page 18", file: "./exams/phys101-2017-final-p18.jpg" },
           { title: "2017 Final - Page 19", file: "./exams/phys101-2017-final-p19.jpg" },
-          { title: "2017 Final - Extra 1", file: "./exams/phys101-2017-final-p134.jpg" },
-          { title: "2017 Final - Extra 2", file: "./exams/phys101-2017-final-p191.jpg" }
+          { title: "2017 Final - Page 23", file: "./exams/phys101-2017-final-p23.jpg" },
+          { title: "2017 Final - Page 24", file: "./exams/phys101-2017-final-p24.jpg" },
+          { title: "2017 Final - Page 25", file: "./exams/phys101-2017-final-p25.jpg" },
+          { title: "2017 Final - Page 26", file: "./exams/phys101-2017-final-p26.jpg" },
+          { title: "2017 Final - Page 27", file: "./exams/phys101-2017-final-p27.jpg" },
+          { title: "2017 Final - Page 29", file: "./exams/phys101-2017-final-p29.jpg" },
+          { title: "2017 Final - Extra 1", file: "./exams/phys101-2017-final-p122.jpg" },
+          { title: "2017 Final - Extra 2", file: "./exams/phys101-2017-final-p134.jpg" },
+          { title: "2017 Final - Extra 3", file: "./exams/phys101-2017-final-p191.jpg" }
         ],
         "2018": [
+          { title: "2018 Midterm - PDF 1", file: "./exams/phys101-2018-mid.pdf" },
+          { title: "2018 Midterm - PDF 2", file: "./exams/phys101-2018-mid2.pdf" },
+          { title: "2018 Midterm - PDF 3", file: "./exams/phys101-2018-mid 3.pdf" },
+          { title: "2018 Midterm - Page 1", file: "./exams/phys101-2018-mid-p1.jpg" },
+          { title: "2018 Midterm - Page 2", file: "./exams/phys101-2018-mid-p2.jpg" },
+          { title: "2018 Midterm - Page 3", file: "./exams/phys101-2018-mid-p3.jpg" },
+          { title: "2018 Midterm - Page 4", file: "./exams/phys101-2018-mid-p4.jpg" },
+          { title: "2018 Midterm - Page 5", file: "./exams/phys101-2018-mid-p5.jpg" },
+          { title: "2018 Midterm - Page 10", file: "./exams/phys101-2018-mid-p10.jpg" },
+          { title: "2018 Midterm - Page 11", file: "./exams/phys101-2018-mid-p11.jpg" },
+          { title: "2018 Midterm - Page 12", file: "./exams/phys101-2018-mid-p12.jpg" },
+          { title: "2018 Midterm - Page 13", file: "./exams/phys101-2018-mid-p13.jpg" },
+          { title: "2018 Midterm - Page 14", file: "./exams/phys101-2018-mid-p14.jpg" },
+          { title: "2018 Midterm - Page 15", file: "./exams/phys101-2018-mid-p15.jpg" },
+          { title: "2018 Midterm - Page 16", file: "./exams/phys101-2018-mid-p16.jpg" },
+          { title: "2018 Midterm - Page 17", file: "./exams/phys101-2018-mid-p17.jpg" },
+          { title: "2018 Midterm - Page 18", file: "./exams/phys101-2018-mid-p18.jpg" },
+          { title: "2018 Midterm - Page 19", file: "./exams/phys101-2018-mid-p19.jpg" },
+          { title: "2018 Midterm - Page 20", file: "./exams/phys101-2018-mid-p20.jpg" },
+          { title: "2018 Midterm - Page 21", file: "./exams/phys101-2018-mid-p21.jpg" },
+          { title: "2018 Midterm - Page 22", file: "./exams/phys101-2018-mid-p22.jpg" },
+          { title: "2018 Midterm - Page 24", file: "./exams/phys101-2018-mid-p24.jpg" },
+          { title: "2018 Midterm - Page 25", file: "./exams/phys101-2018-mid-p25.jpg" },
+          { title: "2018 Midterm - Page 26", file: "./exams/phys101-2018-mid-p26.jpg" },
+          { title: "2018 Midterm - Page 27", file: "./exams/phys101-2018-mid-p27.jpg" },
+          { title: "2018 Midterm - Page 28", file: "./exams/phys101-2018-mid-p28.jpg" },
+          { title: "2018 Midterm - Page 29", file: "./exams/phys101-2018-mid-p29.jpg" },
+          { title: "2018 Midterm - Page 30", file: "./exams/phys101-2018-mid-p30.jpg" },
           { title: "2018 Final - Page 1", file: "./exams/phys101-2018-final-p1.jpg" },
           { title: "2018 Final - Page 2", file: "./exams/phys101-2018-final-p2.jpg" },
           { title: "2018 Final - Page 3", file: "./exams/phys101-2018-final-p3.jpg" },
@@ -248,6 +362,35 @@ const courses = {
           { title: "2016 Midterm - Page 5", file: "./exams/hist101-2016-mid-p5.jpg" },
           { title: "2016 Midterm - Page 6", file: "./exams/hist101-2016-mid-p6.jpg" },
           { title: "2016 Midterm - Page 7", file: "./exams/hist101-2016-mid-p7.jpg" }
+        ],
+        "2017": [
+          { title: "2017 Final - Page 1", file: "./exams/hist101-2017-final-p1.jpg" },
+          { title: "2017 Final - Page 2", file: "./exams/hist101-2017-final-p2.jpg" },
+          { title: "2017 Final - Page 3", file: "./exams/hist101-2017-final-p3.jpg" },
+          { title: "2017 Final - Page 4", file: "./exams/hist101-2017-final-p4.jpg" },
+          { title: "2017 Final - Page 5", file: "./exams/hist101-2017-final-p5.jpg" },
+          { title: "2017 Final - Page 6", file: "./exams/hist101-2017-final-p6.jpg" },
+          { title: "2017 Final - Page 7", file: "./exams/hist101-2017-final-p7.jpg" }
+        ]
+      }
+    },
+
+    // 7. GEOGRAPHY OF ETHIOPIA & THE HORN (GEOG101)
+    {
+      name: "Geography of Ethiopia & the Horn",
+      code: "GEOG101",
+      years: {
+        "2017": [
+          { title: "2017 Final - PDF 1", file: "./exams/geog101-2017-final.pdf" },
+          { title: "2017 Final - PDF 2", file: "./exams/geog101-2017-final2.pdf" },
+          { title: "2017 Final - PDF 3", file: "./exams/geog101-2017-final3.pdf" }
+        ],
+        "2018": [
+          { title: "2018 Final - Page 1", file: "./exams/geog101-2018-final-p1.jpg" },
+          { title: "2018 Final - Page 2", file: "./exams/geog101-2018-final-p2.jpg" },
+          { title: "2018 Final - Page 3", file: "./exams/geog101-2018-final-p3.jpg" },
+          { title: "2018 Final - Page 4", file: "./exams/geog101-2018-final-p4.jpg" },
+          { title: "2018 Final - Page 5", file: "./exams/geog101-2018-final-p5.jpg" }
         ]
       }
     }
@@ -291,6 +434,52 @@ const courses = {
           { title: "2017 Final - Page 7", file: "./exams/ent102-2017-final-p7.jpg" },
           { title: "2017 Final - Page 8", file: "./exams/ent102-2017-final-p8.jpg" },
           { title: "2017 Final - Page 9", file: "./exams/ent102-2017-final-p9.jpg" }
+        ],
+        "2018": [
+          { title: "2018 Midterm - PDF 1", file: "./exams/ent102-2018-mid.pdf" },
+          { title: "2018 Midterm - PDF 2", file: "./exams/ent102-2018-mid2.pdf" },
+          { title: "2018 Final - Page 1", file: "./exams/ent102-2018-final-p1.jpg" },
+          { title: "2018 Final - Page 2", file: "./exams/ent102-2018-final-p2.jpg" },
+          { title: "2018 Final - Page 3", file: "./exams/ent102-2018-final-p3.jpgv.jpg" },
+          { title: "2018 Final - Page 4", file: "./exams/ent102-2018-final-p4.jpg" },
+          { title: "2018 Final - Page 5", file: "./exams/ent102-2018-final-p5.jpg" },
+          { title: "2018 Final - Page 6", file: "./exams/ent102-2018-final-p6.jpg" },
+          { title: "2018 Final - Page 7", file: "./exams/ent102-2018-final-p7.jpg" },
+          { title: "2018 Final - Page 8", file: "./exams/ent102-2018-final-p8.jpg" },
+          { title: "2018 Final - Page 9", file: "./exams/ent102-2018-final-p9.jpg" },
+          { title: "2018 Final - Page 10", file: "./exams/ent102-2018-final-p10.jpg" },
+          { title: "2018 Final - Page 11", file: "./exams/ent102-2018-final-p11.jpg" }
+        ]
+      }
+    },
+
+    // 3. APPLIED MATHEMATICS I (MATH102)
+    {
+      name: "Applied Mathematics I",
+      code: "MATH102",
+      years: {
+        "2017": [
+          { title: "2017 Midterm - Page 1", file: "./exams/math102-2017-mid-p1.jpg" },
+          { title: "2017 Midterm - Page 2", file: "./exams/math102-2017-mid-p2.jpg" },
+          { title: "2017 Midterm - Page 3", file: "./exams/math102-2017-mid-p3.jpg" },
+          { title: "2017 Final - Page 1", file: "./exams/math102-2017-final-p1.jpg" },
+          { title: "2017 Final - Page 2", file: "./exams/math102-2017-final-p2.jpg" },
+          { title: "2017 Final - Page 3", file: "./exams/math102-2017-final-p3.jpg" },
+          { title: "2017 Final - Page 4", file: "./exams/math102-2017-final-p4.jpg" },
+          { title: "2017 Final - Page 5", file: "./exams/math102-2017-final-p5.jpg" },
+          { title: "2017 Final - Page 6", file: "./exams/math102-2017-final-p6.jpg" },
+          { title: "2017 Final - Page 7", file: "./exams/math102-2017-final-p7.jpg" }
+        ],
+        "2018": [
+          { title: "2018 Final - Page 1", file: "./exams/math102-2018-final-p1.jpg" },
+          { title: "2018 Final - Page 2", file: "./exams/math102-2018-final-p2.jpg" },
+          { title: "2018 Final - Page 3", file: "./exams/math102-2018-final-p3.jpg" },
+          { title: "2018 Final - Page 4", file: "./exams/math102-2018-final-p4.jpg" },
+          { title: "2018 Final - Page 5", file: "./exams/math102-2018-final-p5.jpg" },
+          { title: "2018 Final - Page 6", file: "./exams/math102-2018-final-p6.jpg" },
+          { title: "2018 Final - Page 7", file: "./exams/math102-2018-final-p7.jpg" },
+          { title: "2018 Final - Page 8", file: "./exams/math102-2018-final-p8.jpg" },
+          { title: "2018 Final - Page 9", file: "./exams/math102-2018-final-p9.jpg" }
         ]
       }
     }
@@ -418,7 +607,6 @@ function showPage(pageName, event) {
     return;
   }
 
-  // Leaving welcome screen -> show portal navbar, container & support widget
   document.body.classList.remove("welcome-mode");
   welcomePage.classList.add("hidden");
   mainNavbar.classList.remove("hidden");
@@ -520,7 +708,6 @@ function renderCourses() {
         const encodedCourse = encodeURIComponent(course.name);
         const encodedList = encodeURIComponent(JSON.stringify(groupItems));
 
-        // Hide page count and gallery list until unlocked
         const countLabel = isUnlocked
           ? ` (${groupItems.length} ${groupItems.length === 1 ? "File" : "Pages"})`
           : "";
