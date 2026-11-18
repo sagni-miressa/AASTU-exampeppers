@@ -513,6 +513,16 @@ iframe, .modal-content, .course-card, .viewer-stage, .gallery-card {
   opacity: 0.9;
   margin-bottom: 14px;
 }
+.price-highlight-pill {
+  display: inline-block;
+  background: #facc15;
+  color: #0f172a;
+  font-weight: 800;
+  font-size: 0.85rem;
+  padding: 5px 14px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
 
 .btn-unlock-hero {
   background: #ffffff;
