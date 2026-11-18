@@ -1150,3 +1150,9 @@ iframe, .modal-content, .course-card, .viewer-stage, .gallery-card {
   padding: 0 14px;
   cursor: pointer;
 }
+/* Move Support chatbot up slightly so nothing in the bottom-right corner overlaps it */
+.assistant-widget {
+  bottom: 68px !important;
+  right: 20px !important;
+  z-index: 99999 !important;
+}
