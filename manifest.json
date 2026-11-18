@@ -1,13 +1,21 @@
 {
-  "name": "AASTU HUB - Freshman Exams Home",
+  "name": "AASTU HUB - Fresh Exams & Campus Market",
   "short_name": "AASTU HUB",
-  "description": "Freshman Exams & Campus Market for AASTU Students",
+  "description": "Freshman Exams & Campus Accessories Market for AASTU Students",
+  "id": "/",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#090d16",
   "theme_color": "#090d16",
-  "orientation": "portrait",
   "icons": [
+    {
+      "src": "./icon-512.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "./icon-512.png",
       "sizes": "512x512",

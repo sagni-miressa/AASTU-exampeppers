@@ -296,25 +296,61 @@
     let deferredPrompt = null;
     const installBtn = document.getElementById("installAppBtn");
 
+    // Detect if already installed on Home Screen
+    if (window.matchMedia("(display-mode: standalone)").matches && installBtn) {
+      installBtn.textContent = "✅ AASTU HUB Installed";
+      installBtn.disabled = true;
+      installBtn.style.opacity = "0.7";
+    }
+
+    // Capture the native Android/Chrome/Edge Home Screen install prompt
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
       deferredPrompt = e;
     });
 
+    window.addEventListener("appinstalled", () => {
+      deferredPrompt = null;
+      if (installBtn) {
+        installBtn.textContent = "✅ AASTU HUB Installed";
+        installBtn.disabled = true;
+        installBtn.style.opacity = "0.7";
+      }
+    });
+
     if (installBtn) {
       installBtn.addEventListener("click", async () => {
+        const ua = navigator.userAgent || "";
+        const isAndroid = /Android/i.test(ua);
+        const isIOS = /iPhone|iPad|iPod/i.test(ua);
+        // Detect Telegram / Instagram / Facebook in-app browsers
+        const isInAppBrowser = /Telegram|FBAN|FBAV|Instagram|wv/i.test(ua);
+
+        // 1. If opened inside Telegram on Android, automatically jump straight into Chrome
+        if (isAndroid && isInAppBrowser) {
+          window.location.href =
+            "intent://aastu-exampepperss.vercel.app/#Intent;scheme=https;package=com.android.chrome;end";
+          return;
+        }
+
+        // 2. If Chrome/Edge has the native Home Screen prompt ready, pop it up immediately
         if (deferredPrompt) {
           deferredPrompt.prompt();
-          await deferredPrompt.userChoice;
-          deferredPrompt = null;
-        } else {
-          alert(
-            "To install AASTU HUB as an app:\n\n" +
-            "• Android (Chrome / Edge): Tap the top-right menu (⋮) → 'Install app' or 'Add to Home screen'.\n" +
-            "• iPhone (Safari): Tap the Share icon (□↑) at the bottom → 'Add to Home Screen'.\n" +
-            "• Desktop (Chrome / Edge): Click the Install icon in the right side of the address bar."
-          );
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === "accepted") {
+            deferredPrompt = null;
+          }
+          return;
         }
+
+        // 3. Clean inline guidance for iPhone Safari or browsers where prompt was already dismissed
+        installBtn.textContent = isIOS
+          ? "Tap Share (□↑) below → 'Add to Home Screen'"
+          : "Tap browser menu (⋮) → 'Add to Home screen'";
+
+        setTimeout(() => {
+          installBtn.textContent = "📲 Download AASTU HUB App";
+        }, 4500);
       });
     }
   </script>
