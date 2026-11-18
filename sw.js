@@ -1,11 +1,11 @@
-const CACHE_NAME = "aastu-hub-v1";
+const CACHE_NAME = "aastu-hub-v2";
 const ASSETS = [
-  "/",
-  "/index.html",
-  "/styles.css?v=11.0",
-  "/app.js",
-  "/manifest.json",
-  "/icon-512.png"
+  "./",
+  "./index.html",
+  "./styles.css?v=12.0",
+  "./app.js?v=10.0",
+  "./manifest.json",
+  "./icon-512.png"
 ];
 
 self.addEventListener("install", (event) => {
